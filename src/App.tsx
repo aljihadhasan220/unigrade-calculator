@@ -109,8 +109,8 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v:
         <button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Home</button>
         <button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Calculator</button>
         <button onClick={() => document.getElementById('global-standards')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Standards</button>
-        <button onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Features</button>
-        <button onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">FAQ</button>
+        <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">About</button>
+        <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Contact</button>
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
@@ -709,6 +709,60 @@ export default function App() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 block">Our Mission</label>
+            <h2 className="text-4xl md:text-5xl font-extrabold font-display mb-6">Precision Academic Analytics for Everyone.</h2>
+            <div className="space-y-4 text-gray-500 font-medium">
+              <p>
+                UniGrade was born out of a simple need: a reliable, universal way for students to track their academic progress without complex spreadsheets or restricted institutional software.
+              </p>
+              <p>
+                Whether you're studying in the USA, UK, India, or Europe, our platform provides instant GPA, CGPA, and percentage conversion following international benchmarks. We prioritize accuracy and simplicity, ensuring your data stays private and accessible.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-6 mt-10">
+              <div className="p-6 rounded-2xl bg-white border border-gray-50 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  <Globe size={20} />
+                </div>
+                <h4 className="font-bold text-sm mb-1">Global Support</h4>
+                <p className="text-xs text-gray-400">10+ scale benchmarks</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white border border-gray-50 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mb-4">
+                  <ShieldCheck size={20} />
+                </div>
+                <h4 className="font-bold text-sm mb-1">Secure & Private</h4>
+                <p className="text-xs text-gray-400">LocalStorage protection</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative">
+            <GlassCard className="p-2 overflow-hidden border-2 border-primary/5">
+              <img 
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" 
+                alt="Students collaborating" 
+                className="w-full h-[400px] object-cover rounded-[18px]"
+                referrerPolicy="no-referrer"
+              />
+            </GlassCard>
+            <div className="absolute -bottom-6 -left-6 p-6 glass-effect rounded-2xl border border-white/50 shadow-2xl">
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {[1,2,3].map(i => (
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200" />
+                  ))}
+                </div>
+                <span className="text-[10px] font-black text-gray-500 uppercase">Trusted by 10k+ Students</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section id="faq" className="py-20 px-6 bg-white/50 border-t border-gray-50 scroll-mt-32">
         <div className="max-w-xl mx-auto space-y-4 text-center mb-10">
@@ -731,13 +785,144 @@ export default function App() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-32">
+        <GlassCard className="p-8 md:p-16 border-2 border-primary/5">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-16">
+            <div>
+              <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 block">Get in Touch</label>
+              <h2 className="text-4xl font-extrabold font-display mb-6 tracking-tight">Have questions or feedback?</h2>
+              <p className="text-gray-500 mb-10 font-medium">
+                Our support team is always ready to help with grading issues or feature requests. We aim to respond within 24 hours.
+              </p>
+              
+              <div className="space-y-6">
+                {[
+                  { icon: Info, title: "Support", value: "support@unigrade.com" },
+                  { icon: Globe, title: "Global Office", value: "Toronto, Canada" }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400">
+                      <item.icon size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{item.title}</p>
+                      <p className="font-bold text-gray-800">{item.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Change the email below to your own to receive form submissions */}
+            <form action="https://formsubmit.co/aljihadhasan220@gmail.com" method="POST" className="space-y-6">
+              {/* FormSubmit Configs */}
+              <input type="hidden" name="_subject" value="New UniGrade Contact Message!" />
+              <input type="hidden" name="_captcha" value="false" />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Full Name</label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    required 
+                    placeholder="John Doe" 
+                    className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    required 
+                    placeholder="john@example.com" 
+                    className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Subject</label>
+                <input 
+                  type="text" 
+                  name="subject" 
+                  required 
+                  placeholder="Grading System Request" 
+                  className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Your Message</label>
+                <textarea 
+                  name="message" 
+                  required 
+                  placeholder="How can we help you today?" 
+                  rows={4}
+                  className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium resize-none"
+                />
+              </div>
+              <Button type="submit" className="w-full h-14 uppercase tracking-widest text-xs">Send Message</Button>
+            </form>
+          </div>
+        </GlassCard>
+      </section>
+
+      {/* Legal Section */}
+      <section className="py-24 px-6 bg-gray-50/50 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div id="privacy" className="scroll-mt-32">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center">
+                <ShieldCheck size={18} />
+              </div>
+              <h3 className="text-xl font-bold font-display">Privacy Policy</h3>
+            </div>
+            <div className="space-y-4 text-sm text-gray-500 leading-relaxed font-medium">
+              <p>Your privacy is our priority. UniGrade does not collect, store, or share your academic data on any central servers. All your subject entries and calculations are stored exclusively on your device using LocalStorage.</p>
+              <p>We do not use tracking cookies or sell user information. This platform is built purely for educational empowerment and personal progress tracking.</p>
+            </div>
+          </div>
+          <div id="terms" className="scroll-mt-32">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center">
+                <Check size={18} />
+              </div>
+              <h3 className="text-xl font-bold font-display">Terms & Conditions</h3>
+            </div>
+            <div className="space-y-4 text-sm text-gray-500 leading-relaxed font-medium">
+              <p>UniGrade is an educational tool. While we strive for 100% mathematical accuracy across all supported grading systems, results should be verified with your official academic institution for formal certifications.</p>
+              <p>By using this tool, you acknowledge that calculations are based on the inputs provided. Fair use of the platform is encouraged for students and educators worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-12 px-6 text-center border-t border-gray-50 relative z-10">
-        <div className="flex flex-col items-center gap-4">
-           <span className="font-extrabold text-sm tracking-tight text-gray-500">&copy; 2026 UniGrade Systems Corporation.</span>
-           <p className="text-[10px] font-medium text-gray-300 max-w-md text-center leading-loose">
-            Precision GPA metrics for global education systems. This tool is designed for academic tracking purposes only.
-           </p>
+      <footer className="py-20 px-6 text-center relative z-10 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-8">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+              <span className="text-white font-black text-lg">✦</span>
+            </div>
+            <span className="text-xl font-extrabold tracking-tight text-text font-display">UniGrade</span>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 mb-12 text-sm font-bold text-gray-400 uppercase tracking-widest">
+            <button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Home</button>
+            <button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Calculator</button>
+            <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">About</button>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Contact</button>
+            <button onClick={() => document.getElementById('privacy')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Privacy</button>
+            <button onClick={() => document.getElementById('terms')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Terms</button>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 border-t border-gray-100 pt-12">
+             <span className="font-extrabold text-xs tracking-tight text-gray-400">&copy; 2026 UniGrade Systems Corporation. All Rights Reserved.</span>
+             <p className="text-[10px] font-medium text-gray-300 max-w-lg text-center leading-loose">
+              Unified Academic Metric Engine for global students. Built with precision and privacy at its core.
+             </p>
+          </div>
         </div>
       </footer>
 
