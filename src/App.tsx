@@ -84,20 +84,23 @@ const Button = ({
 };
 
 const Input = ({ label, ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
-  <div className="flex flex-col gap-1.5 w-full">
+  <div className="flex flex-col gap-1.5 w-full min-w-0">
     <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">{label}</label>
     <input 
       {...props}
-      className="bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all placeholder:text-gray-300"
+      className="bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all placeholder:text-gray-200 w-full min-w-0"
     />
   </div>
 );
 
 const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v: boolean) => void }) => (
-  <nav className="fixed top-6 left-6 right-6 z-50 glass-effect rounded-2xl">
+  <nav className="fixed top-6 left-6 right-6 z-50 glass-effect rounded-[20px] shadow-2xl shadow-primary/5 border border-white/50">
     <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">✦ UniGrade</span>
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+          <span className="text-white font-black text-lg">✦</span>
+        </div>
+        <span className="text-xl font-extrabold tracking-tight text-text font-display">UniGrade</span>
       </div>
       
       <div className="hidden md:flex items-center gap-6 text-sm font-bold text-gray-600">
@@ -152,8 +155,8 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [gradingSystem, setGradingSystem] = useState<GradingSystem>('USA');
   const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [previousCgpa, setPreviousCgpa] = useState<number>(0);
-  const [previousCredits, setPreviousCredits] = useState<number>(0);
+  const [previousCgpa, setPreviousCgpa] = useState<number | ''>('');
+  const [previousCredits, setPreviousCredits] = useState<number | ''>('');
   const [copied, setCopied] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -164,8 +167,8 @@ export default function App() {
       const data = JSON.parse(saved);
       setSubjects(data.subjects || []);
       setGradingSystem(data.gradingSystem || 'USA');
-      setPreviousCgpa(data.previousCgpa || 0);
-      setPreviousCredits(data.previousCredits || 0);
+      setPreviousCgpa(data.previousCgpa ?? '');
+      setPreviousCredits(data.previousCredits ?? '');
     }
   }, []);
 
@@ -216,10 +219,13 @@ export default function App() {
     const gpa = totalCredits > 0 ? totalWeightedPoints / totalCredits : 0;
     const averagePercentage = totalMarks / (subjects.length || 1);
 
+    const prevC = typeof previousCredits === 'number' ? previousCredits : 0;
+    const prevG = typeof previousCgpa === 'number' ? previousCgpa : 0;
+
     // CGPA Calculation (weighted average of previous and current)
-    const totalCgpaCredits = totalCredits + previousCredits;
+    const totalCgpaCredits = totalCredits + prevC;
     const currentWeighted = gpa * totalCredits;
-    const previousWeighted = previousCgpa * previousCredits;
+    const previousWeighted = prevG * prevC;
     const cgpa = totalCgpaCredits > 0 ? (currentWeighted + previousWeighted) / totalCgpaCredits : gpa;
 
     let gradeBadge = 'Excellent';
@@ -343,21 +349,21 @@ export default function App() {
                     <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none w-4 h-4" />
                   </div>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 w-full">
                   <Input 
                     label="Prev. CGPA" 
                     type="number" 
                     step="0.01" 
                     placeholder="0.00" 
-                    value={previousCgpa || ''} 
-                    onChange={e => setPreviousCgpa(parseFloat(e.target.value) || 0)}
+                    value={previousCgpa} 
+                    onChange={e => setPreviousCgpa(e.target.value === '' ? '' : parseFloat(e.target.value))}
                   />
                   <Input 
                     label="Credits" 
                     type="number" 
                     placeholder="0" 
-                    value={previousCredits || ''} 
-                    onChange={e => setPreviousCredits(parseFloat(e.target.value) || 0)}
+                    value={previousCredits} 
+                    onChange={e => setPreviousCredits(e.target.value === '' ? '' : parseFloat(e.target.value))}
                   />
                 </div>
               </div>
@@ -386,26 +392,28 @@ export default function App() {
                         layout
                         className="group flex flex-col md:flex-row items-center gap-4 bg-white/50 p-4 rounded-2xl border border-gray-50 hover:border-primary/20 transition-all"
                       >
-                        <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr] gap-3">
-                            <Input 
-                              label="Name" 
-                              placeholder="Advanced Algorithms" 
-                              value={subject.name} 
-                              onChange={e => updateSubject(subject.id, 'name', e.target.value)}
-                            />
+                        <div className="flex-1 w-full grid grid-cols-2 sm:grid-cols-[2fr_1fr_1fr_1fr] gap-3">
+                            <div className="col-span-2 sm:col-span-1">
+                              <Input 
+                                label="Name" 
+                                placeholder="Advanced Algorithms" 
+                                value={subject.name} 
+                                onChange={e => updateSubject(subject.id, 'name', e.target.value)}
+                              />
+                            </div>
                             <Input 
                               label="Credits" 
                               type="number" 
-                              value={subject.credits} 
-                              onChange={e => updateSubject(subject.id, 'credits', parseFloat(e.target.value) || 0)}
+                              value={subject.credits === 0 ? '' : subject.credits} 
+                              onChange={e => updateSubject(subject.id, 'credits', e.target.value === '' ? 0 : parseFloat(e.target.value))}
                             />
-                            <div>
+                            <div className="min-w-0">
                               <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1 mb-1.5 block">Grade</label>
                               <div className="relative">
                                 <select 
                                   value={subject.grade}
                                   onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
-                                  className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/10 font-bold"
+                                  className="w-full bg-white border border-gray-100 rounded-xl px-3 py-3 text-sm appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary font-bold transition-all"
                                 >
                                   {Object.keys(GRADING_SYSTEMS[gradingSystem].steps).map(g => (
                                     <option key={g} value={g}>{g}</option>
@@ -417,8 +425,8 @@ export default function App() {
                             <Input 
                               label="Marks %" 
                               type="number" 
-                              value={subject.marks} 
-                              onChange={e => updateSubject(subject.id, 'marks', parseFloat(e.target.value) || 0)}
+                              value={subject.marks === 0 ? '' : subject.marks} 
+                              onChange={e => updateSubject(subject.id, 'marks', e.target.value === '' ? 0 : parseFloat(e.target.value))}
                             />
                         </div>
                         <button 
@@ -448,67 +456,92 @@ export default function App() {
 
           {/* Right: Results Panel */}
           <div className="space-y-6 lg:sticky lg:top-28">
-            <GlassCard className="p-8">
-              <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-8 block">Real-time Analysis</label>
+            <GlassCard className="p-8 border-2 border-primary/5">
+              <div className="flex items-center justify-between mb-8">
+                <label className="text-[10px] font-black text-primary/60 uppercase tracking-[0.2em]">Real-time Analysis</label>
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                  <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-75" />
+                  <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-150" />
+                </div>
+              </div>
               
               <div ref={resultRef}>
                 {calculationResult ? (
                   <div className="space-y-6">
-                    <div className="flex justify-center py-4">
-                      <div className="w-40 h-40 rounded-full bg-gray-50 flex items-center justify-center relative">
+                    <div className="flex justify-center py-4 scale-110">
+                      <div className="w-40 h-40 rounded-full bg-white shadow-inner flex items-center justify-center relative">
                          <svg className="w-full h-full transform -rotate-90 absolute">
-                          <circle cx="80" cy="80" r="76" stroke="rgba(0,0,0,0.03)" strokeWidth="8" fill="transparent" />
-                          <circle 
-                            cx="80" cy="80" r="76" stroke="var(--color-primary)" strokeWidth="8" fill="transparent" 
-                            strokeDasharray={`${(calculationResult.gpa / GRADING_SYSTEMS[gradingSystem].max) * 477} 1000`}
+                          <circle cx="80" cy="80" r="72" stroke="rgba(0,0,0,0.02)" strokeWidth="10" fill="transparent" />
+                          <motion.circle 
+                            initial={{ strokeDasharray: "0 1000" }}
+                            animate={{ strokeDasharray: `${(calculationResult.gpa / GRADING_SYSTEMS[gradingSystem].max) * 452} 1000` }}
+                            transition={{ duration: 1.5, ease: "circOut" }}
+                            cx="80" cy="80" r="72" stroke="url(#gradient)" strokeWidth="10" fill="transparent" 
                             strokeLinecap="round"
                           />
+                          <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#7c4dff" />
+                              <stop offset="100%" stopColor="#00c2ff" />
+                            </linearGradient>
+                          </defs>
                         </svg>
                         <div className="flex flex-col items-center">
-                          <span className="text-4xl font-extrabold text-text leading-none">{calculationResult.gpa.toFixed(2)}</span>
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">GPA</span>
+                          <span className="text-5xl font-black text-text leading-none tracking-tighter">{calculationResult.gpa.toFixed(2)}</span>
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">GPA INDEX</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="text-center">
-                      <span className="inline-block px-3 py-1 rounded bg-[#ecfdf5] text-[#059669] text-[10px] font-black uppercase tracking-tight">
+                    <div className="text-center pt-2">
+                      <span className="inline-block px-4 py-1.5 rounded-full bg-[#ecfdf5] text-[#059669] text-[11px] font-black uppercase tracking-tight shadow-sm border border-[#059669]/5">
                         {calculationResult.status}
                       </span>
                     </div>
 
-                    <div className="space-y-2 pt-4">
-                      <div className="flex justify-between items-center p-4 bg-white rounded-xl border border-gray-50">
-                        <span className="text-[11px] font-bold text-gray-400 uppercase">CGPA</span>
-                        <span className="font-extrabold">{calculationResult.cgpa.toFixed(2)}</span>
+                    <div className="grid grid-cols-1 gap-2 pt-4">
+                      <div className="flex justify-between items-center p-4 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+                        <span className="text-[11px] font-bold text-gray-400 uppercase">Cumulative CGPA</span>
+                        <span className="font-extrabold text-lg">{calculationResult.cgpa.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between items-center p-4 bg-white rounded-xl border border-gray-50">
-                        <span className="text-[11px] font-bold text-gray-400 uppercase">Percentage</span>
-                        <span className="font-extrabold">{calculationResult.percentage.toFixed(1)}%</span>
+                      <div className="flex justify-between items-center p-4 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+                        <span className="text-[11px] font-bold text-gray-400 uppercase">Total Percentage</span>
+                        <span className="font-extrabold text-lg">{calculationResult.percentage.toFixed(1)}%</span>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 pt-4">
-                      <Button onClick={copyResult} variant="outline" className="text-[11px] py-3.5 px-0 h-auto font-black shadow-none border-gray-100">
+                    <div className="grid grid-cols-2 gap-3 pt-4">
+                      <Button onClick={copyResult} variant="outline" className="text-[11px] py-4 h-auto font-black shadow-none border-gray-100 tracking-wider">
                         {copied ? 'COPIED!' : 'COPY LINK'}
                       </Button>
-                      <Button onClick={downloadAsImage} variant="outline" className="text-[11px] py-3.5 px-0 h-auto font-black shadow-none border-gray-100">
-                        SAVE PDF
+                      <Button onClick={downloadAsImage} variant="secondary" className="text-[11px] py-4 h-auto font-black tracking-wider shadow-xl shadow-black/10">
+                        SAVE REPORT
                       </Button>
                     </div>
                   </div>
                 ) : (
-                  <div className="py-20 text-center">
-                    <p className="text-xs font-bold text-gray-300 uppercase tracking-widest">Awaiting Input Data</p>
+                  <div className="py-24 text-center">
+                    <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                      <Calculator size={20} className="text-gray-200" />
+                    </div>
+                    <p className="text-[11px] font-bold text-gray-300 uppercase tracking-widest leading-loose">
+                      Awaiting entry of<br/>academic data
+                    </p>
                   </div>
                 )}
               </div>
             </GlassCard>
 
-            <GlassCard className="p-5 flex justify-between items-center bg-[#111827] border-none text-white overflow-hidden relative">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-primary/20 rounded-full blur-2xl" />
-              <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] relative z-10">Equivalent</label>
-              <span className="font-extrabold text-sm relative z-10">UK High Distinction</span>
+            <GlassCard className="p-6 flex justify-between items-center bg-[#111827] border-none text-white overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all" />
+              <div className="relative z-10">
+                <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] block mb-1">Standard Weight</label>
+                <span className="font-extrabold text-sm tracking-tight">UK High Distinction</span>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center relative z-10 border border-white/10">
+                <Globe size={18} className="text-secondary" />
+              </div>
             </GlassCard>
           </div>
         </div>

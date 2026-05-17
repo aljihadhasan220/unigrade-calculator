@@ -9,6 +9,37 @@
   --color-text: #111827;
   --color-glass: rgba(255, 255, 255, 0.7);
   --color-border: rgba(124, 77, 255, 0.1);
+
+  /* Override default grays to avoid oklch */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Red */
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+
+  /* Blue */
+  --color-blue-50: #eff6ff;
+  --color-blue-500: #3b82f6;
+
+  /* Green / Success */
+  --color-green-500: #22c55e;
+  --color-emerald-500: #10b981;
+  --color-success-bg: #ecfdf5;
+  --color-success-text: #059669;
+
+  /* Yellow */
+  --color-yellow-500: #eab308;
 }
 
 @layer base {
