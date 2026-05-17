@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { GlassCard, Button } from '../components/UI';
 import { Info, Globe, Mail, CheckCircle, AlertCircle } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -40,6 +41,11 @@ export default function ContactPage() {
 
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with the UniGrade support team for grading queries, feedback, or enterprise integration requests."
+        canonical="/contact"
+      />
       <div className="max-w-7xl mx-auto">
         <BackButton />
         <GlassCard className="p-6 md:p-16 border-2 border-primary/5">

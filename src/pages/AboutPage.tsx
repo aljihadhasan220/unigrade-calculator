@@ -3,10 +3,16 @@ import { motion } from 'motion/react';
 import { GlassCard } from '../components/UI';
 import { Globe, ShieldCheck } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 export default function AboutPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="About Our Mission"
+        description="Learn about UniGrade's mission to provide students with precision academic tools and worldwide grading standards visibility."
+        canonical="/about"
+      />
       <div className="max-w-7xl mx-auto">
         <BackButton />
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12">

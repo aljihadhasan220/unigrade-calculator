@@ -26,6 +26,8 @@ import { cn } from '../lib/utils';
 import { GRADING_SYSTEMS, type GradingSystem, type Subject, type CalculationResult } from '../types';
 import { GlassCard, Button, Input } from '../components/UI';
 
+import { SEO } from '../components/SEO';
+
 const SubjectItem = memo(({ 
   subject, 
   gradingSystem, 
@@ -37,14 +39,16 @@ const SubjectItem = memo(({
   updateSubject: (id: string, field: keyof Subject, value: any) => void; 
   removeSubject: (id: string) => void;
 }) => (
-  <motion.div
+<motion.div
     initial={{ opacity: 0, scale: 0.98 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.98 }}
     layout="size"
     className="group flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary/20 transition-all shadow-sm w-full gpu-accelerate"
   >
+  {/* Add a hidden aria-label for accessibility on the remove button */}
     <div className="flex-1 w-full grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-4">
+
         <div className="col-span-2 md:col-span-1">
           <Input 
             label="Name" 
@@ -274,6 +278,21 @@ export default function HomePage() {
 
   return (
     <div className="w-full">
+      <SEO 
+        title="Universal Grade Engine"
+        description="Calculate your GPA, CGPA, and grade percentages with UniGrade. The most advanced universal grade calculator supporting 15+ international systems with real-time academic analytics."
+        canonical="/"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "UniGrade",
+          "url": "https://unigrade.app",
+          "description": "Universal grade calculator for GPA, CGPA, and Percentage conversions across international grading systems.",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "offers": { "@type": "Offer", "price": "0" }
+        }}
+      />
       {/* Hero Section */}
       <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full gpu-accelerate">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">

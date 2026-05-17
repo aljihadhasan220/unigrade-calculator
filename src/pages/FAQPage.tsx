@@ -4,6 +4,7 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { GlassCard } from '../components/UI';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 const FAQItem = ({ question, answer }: { question: string; answer: string; key?: React.Key }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +63,23 @@ export default function FAQPage() {
 
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="FAQ"
+        description="Find answers to common questions about UniGrade's calculation methods, privacy, and international standard support."
+        canonical="/faq"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        }}
+      />
       <div className="max-w-3xl mx-auto">
         <BackButton />
         <motion.div

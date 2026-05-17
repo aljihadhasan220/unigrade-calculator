@@ -3,10 +3,16 @@ import { motion } from 'motion/react';
 import { GlassCard } from '../components/UI';
 import { FileText, CheckCircle2, AlertCircle } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 export default function TermsPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="Terms of Service"
+        description="Terms and conditions for using the UniGrade platform, calculation engine, and academic report generation tools."
+        canonical="/terms"
+      />
       <div className="max-w-4xl mx-auto">
         <BackButton />
         <motion.div

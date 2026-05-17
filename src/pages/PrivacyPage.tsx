@@ -3,10 +3,16 @@ import { motion } from 'motion/react';
 import { GlassCard } from '../components/UI';
 import { ShieldCheck, Lock, EyeOff } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 export default function PrivacyPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="Privacy Policy"
+        description="Our commitment to academic data privacy. Learn how UniGrade keeps your data strictly on your device using a local-only storage model."
+        canonical="/privacy"
+      />
       <div className="max-w-4xl mx-auto">
         <BackButton />
         <motion.div

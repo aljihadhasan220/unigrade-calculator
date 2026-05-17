@@ -4,10 +4,16 @@ import { GlassCard } from '../components/UI';
 import { Globe } from 'lucide-react';
 import { GRADING_SYSTEMS } from '../types';
 import BackButton from '../components/BackButton';
+import { SEO } from '../components/SEO';
 
 export default function StandardsPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <SEO 
+        title="Global Grading Standards"
+        description="Comprehensive index of international grading systems including USA, UK, India, and ECTS benchmarks supported by the UniGrade engine."
+        canonical="/standards"
+      />
       <div className="max-w-7xl mx-auto">
         <BackButton />
         <motion.div
