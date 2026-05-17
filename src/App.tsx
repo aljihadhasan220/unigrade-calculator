@@ -107,6 +107,7 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v:
       
       <div className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-600">
         <a href="#calculator" className="hover:text-primary transition-colors">Calculator</a>
+        <a href="#global-standards" className="hover:text-primary transition-colors">Standards</a>
         <a href="#features" className="hover:text-primary transition-colors">Features</a>
         <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
       </div>
@@ -365,7 +366,11 @@ export default function App() {
               <Button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })} className="h-12 px-8 text-sm">
                 Open Calculator
               </Button>
-              <Button variant="outline" className="h-12 px-8 text-sm">
+              <Button 
+                onClick={() => document.getElementById('global-standards')?.scrollIntoView({ behavior: 'smooth' })} 
+                variant="outline" 
+                className="h-12 px-8 text-sm"
+              >
                 View Global Standards
               </Button>
             </div>
@@ -620,6 +625,57 @@ export default function App() {
               </div>
             </GlassCard>
           </div>
+        </div>
+      </section>
+
+      {/* Global Standards Section */}
+      <section id="global-standards" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-32">
+        <div className="text-center mb-16">
+          <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 block">International Benchmarks</label>
+          <h2 className="text-4xl md:text-5xl font-extrabold font-display mb-4">Global Grading Standards</h2>
+          <p className="text-gray-500 max-w-2xl mx-auto font-medium">
+            Compare academic benchmarks and evaluation criteria across major international education systems.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(GRADING_SYSTEMS).filter(([key]) => key !== 'CUSTOM').map(([key, system]) => (
+            <GlassCard key={key} className="p-8 hover:border-primary/30 transition-all group overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-all" />
+              
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                  <Globe size={22} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg leading-none mb-1">{system.name}</h3>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Standardized Scale</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest pb-3 border-b border-gray-100">
+                  <span>Grade Symbol</span>
+                  <span>Point / Weight</span>
+                </div>
+                <div className="space-y-1">
+                  {Object.entries(system.steps).map(([grade, point]) => (
+                    <div key={grade} className="flex items-center justify-between py-2.5 rounded-lg hover:bg-gray-50/50 px-2 -mx-2 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-white border border-gray-100 flex items-center justify-center font-black text-xs text-text shadow-sm">
+                          {grade}
+                        </div>
+                        <span className="font-bold text-gray-700 text-sm">{grade.length > 2 ? grade : `Grade ${grade}`}</span>
+                      </div>
+                      <span className="font-mono font-bold text-primary bg-primary/5 px-2 py-1 rounded text-[11px]">
+                        {point.toFixed(key === 'UK' ? 0 : 1)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </GlassCard>
+          ))}
         </div>
       </section>
 
