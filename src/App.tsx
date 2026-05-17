@@ -94,29 +94,29 @@ const Input = ({ label, ...props }: { label: string } & React.InputHTMLAttribute
 );
 
 const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v: boolean) => void }) => (
-  <nav className="fixed top-6 left-6 right-6 z-50 glass-effect rounded-[20px] shadow-2xl shadow-primary/5 border border-white/50">
-    <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div className="flex items-center gap-2">
+  <nav className="fixed top-8 left-4 right-4 md:left-6 md:right-6 z-50 bg-white/40 backdrop-blur-2xl rounded-[20px] shadow-2xl shadow-primary/10 border border-white/60">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-18 flex items-center justify-between gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
           <span className="text-white font-black text-lg">✦</span>
         </div>
-        <span className="text-xl font-extrabold tracking-tight text-text font-display">UniGrade</span>
+        <span className="text-lg md:text-xl font-extrabold tracking-tight text-text font-display">UniGrade</span>
       </div>
       
-      <div className="hidden md:flex items-center gap-6 text-sm font-bold text-gray-600">
+      <div className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-600">
         <a href="#calculator" className="hover:text-primary transition-colors">Calculator</a>
         <a href="#features" className="hover:text-primary transition-colors">Features</a>
         <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <button 
           onClick={() => setDarkMode(!darkMode)}
-          className="p-2 rounded-xl text-gray-400 hover:bg-gray-100 transition-all"
+          className="p-2 rounded-xl text-gray-400 hover:bg-gray-100 transition-all shrink-0"
         >
           {darkMode ? <Sun size={18} /> : <Moon size={18} />}
         </button>
-        <Button className="py-2 px-4 shadow-none text-xs tracking-tight" variant="secondary">Join UniGrade</Button>
+        <Button className="py-2 px-3 md:px-4 shadow-none text-[10px] md:text-xs tracking-tight whitespace-nowrap" variant="secondary">Join Now</Button>
       </div>
     </div>
   </nav>
@@ -217,17 +217,29 @@ export default function App() {
     });
 
     const gpa = totalCredits > 0 ? totalWeightedPoints / totalCredits : 0;
-    const averagePercentage = totalMarks / (subjects.length || 1);
-
+    
     const prevC = typeof previousCredits === 'number' ? previousCredits : 0;
     const prevG = typeof previousCgpa === 'number' ? previousCgpa : 0;
 
     // CGPA Calculation (weighted average of previous and current)
     const totalCgpaCredits = totalCredits + prevC;
     const currentWeighted = gpa * totalCredits;
-    const previousWeighted = prevG * prevC;
-    const cgpa = totalCgpaCredits > 0 ? (currentWeighted + previousWeighted) / totalCgpaCredits : gpa;
+    const previousWeighted = Math.min(prevG, system.max) * prevC; // Cap previous CGPA to system max
+    const cgpa = Math.min(totalCgpaCredits > 0 ? (currentWeighted + previousWeighted) / totalCgpaCredits : gpa, system.max);
 
+    // Percentage logic (scale-aware)
+    let percentage = 0;
+    if (gradingSystem === 'INDIA') {
+      percentage = gpa * 10;
+    } else {
+      percentage = (gpa / (system.max || 1)) * 100;
+    }
+    
+    // If user provided custom marks, we can blend or prefer them if they are non-zero
+    const averageMarks = subjects.reduce((acc, s) => acc + (s.marks || 0), 0) / (subjects.length || 1);
+    // If average marks is significantly far from GPA percentage, we might want to respect it
+    // But usually GPA to Percentage is a formula. We'll use the formula for "Result Dashboard" consistency.
+    
     let gradeBadge = 'Excellent';
     let status = 'Great Work';
     
@@ -240,7 +252,7 @@ export default function App() {
     else if (performanceRatio >= 0.4) { gradeBadge = 'Passed'; status = 'Needs Improvement'; }
     else { gradeBadge = 'Failed'; status = 'Study Harder'; }
 
-    return { gpa, cgpa, percentage: averagePercentage, gradeBadge, status };
+    return { gpa, cgpa, percentage, gradeBadge, status };
   }, [subjects, gradingSystem, previousCgpa, previousCredits]);
 
   const copyResult = () => {
@@ -473,13 +485,14 @@ export default function App() {
                       <div className="w-40 h-40 rounded-full bg-white shadow-inner flex items-center justify-center relative">
                          <svg className="w-full h-full transform -rotate-90 absolute">
                           <circle cx="80" cy="80" r="72" stroke="rgba(0,0,0,0.02)" strokeWidth="10" fill="transparent" />
-                          <motion.circle 
-                            initial={{ strokeDasharray: "0 1000" }}
-                            animate={{ strokeDasharray: `${(calculationResult.gpa / GRADING_SYSTEMS[gradingSystem].max) * 452} 1000` }}
-                            transition={{ duration: 1.5, ease: "circOut" }}
-                            cx="80" cy="80" r="72" stroke="url(#gradient)" strokeWidth="10" fill="transparent" 
-                            strokeLinecap="round"
-                          />
+                            <motion.circle 
+                              initial={{ strokeDashoffset: 452.38 }}
+                              animate={{ strokeDashoffset: 452.38 - (Math.min(calculationResult.gpa, GRADING_SYSTEMS[gradingSystem].max) / GRADING_SYSTEMS[gradingSystem].max) * 452.38 }}
+                              transition={{ duration: 1.5, ease: "circOut" }}
+                              cx="80" cy="80" r="72" stroke="url(#gradient)" strokeWidth="10" fill="transparent" 
+                              strokeDasharray="452.38"
+                              strokeLinecap="round"
+                            />
                           <defs>
                             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                               <stop offset="0%" stopColor="#7c4dff" />
@@ -513,7 +526,7 @@ export default function App() {
 
                     <div className="grid grid-cols-2 gap-3 pt-4">
                       <Button onClick={copyResult} variant="outline" className="text-[11px] py-4 h-auto font-black shadow-none border-gray-100 tracking-wider">
-                        {copied ? 'COPIED!' : 'COPY LINK'}
+                        {copied ? 'COPIED!' : 'COPY RESULT'}
                       </Button>
                       <Button onClick={downloadAsImage} variant="secondary" className="text-[11px] py-4 h-auto font-black tracking-wider shadow-xl shadow-black/10">
                         SAVE REPORT
