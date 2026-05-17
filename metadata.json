@@ -1,0 +1,6 @@
+{
+  "name": "UniGrade – Universal Grade Calculator",
+  "description": "A premium worldwide grade calculator platform for students supporting GPA, CGPA, and various grading systems with a futuristic SaaS UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

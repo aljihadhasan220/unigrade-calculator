@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --color-primary: #7c4dff;
+  --color-secondary: #00c2ff;
+  --color-bg: #f5f7ff;
+  --color-text: #111827;
+  --color-glass: rgba(255, 255, 255, 0.7);
+  --color-border: rgba(124, 77, 255, 0.1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .aurora-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  .aurora-1 {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124, 77, 255, 0.2) 0%, transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .aurora-2 {
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 194, 255, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(124, 77, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+  }
+}
+
