@@ -60,7 +60,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className={cn(
-      "min-h-screen font-sans selection:bg-primary/10 selection:text-primary aurora-bg overflow-x-hidden w-full relative", 
+      "font-sans selection:bg-primary/10 selection:text-primary aurora-bg w-full relative", 
       darkMode && "dark bg-[#111827] text-white"
     )}>
       <div className="aurora-1" />

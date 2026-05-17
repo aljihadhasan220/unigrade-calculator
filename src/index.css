@@ -48,7 +48,7 @@
     scroll-behavior: smooth;
     scroll-padding-top: 140px;
     overflow-x: hidden;
-    width: 100vw;
+    width: 100%;
   }
   body {
     overflow-x: hidden;
@@ -63,11 +63,12 @@
 @layer utilities {
   .aurora-bg {
     position: relative;
+    overflow: hidden;
   }
   .aurora-1 {
     position: absolute;
-    top: -20%;
-    left: -10%;
+    top: -100px;
+    left: -100px;
     width: 500px;
     height: 500px;
     background: radial-gradient(circle, rgba(124, 77, 255, 0.2) 0%, transparent 70%);
@@ -77,8 +78,8 @@
   }
   .aurora-2 {
     position: absolute;
-    bottom: -10%;
-    right: -5%;
+    bottom: -200px;
+    right: -200px;
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(0, 194, 255, 0.15) 0%, transparent 70%);
