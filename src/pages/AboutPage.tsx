@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
       <SEO 
-        title="About Our Mission"
+        title="About UniGrade | Global Academic Analytics"
         description="Learn about UniGrade's mission to provide students with precision academic tools and worldwide grading standards visibility."
         canonical="/about"
       />

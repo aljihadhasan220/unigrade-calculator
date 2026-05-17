@@ -9,7 +9,7 @@ export default function PrivacyPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
       <SEO 
-        title="Privacy Policy"
+        title="Privacy Policy | UniGrade"
         description="Our commitment to academic data privacy. Learn how UniGrade keeps your data strictly on your device using a local-only storage model."
         canonical="/privacy"
       />

@@ -17,7 +17,7 @@ export const SEO = ({
 }: SEOProps) => {
   const siteTitle = "UniGrade – Universal Grade Calculator";
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
-  const siteUrl = "https://unigrade.app";
+  const siteUrl = "https://unigrade.site";
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
   return (

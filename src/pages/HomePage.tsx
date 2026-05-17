@@ -55,6 +55,7 @@ const SubjectItem = memo(({
             placeholder="Subject Name" 
             value={subject.name} 
             onChange={e => updateSubject(subject.id, 'name', e.target.value)}
+            aria-label="Subject name"
           />
         </div>
         <Input 
@@ -62,14 +63,16 @@ const SubjectItem = memo(({
           type="number" 
           value={subject.credits === 0 ? '' : subject.credits} 
           onChange={e => updateSubject(subject.id, 'credits', e.target.value === '' ? 0 : parseFloat(e.target.value))}
+          aria-label="Academic credits"
         />
         <div className="min-w-0">
-          <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1 mb-1.5 block">Grade</label>
+          <label id={`grade-label-${subject.id}`} className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1 mb-1.5 block">Grade</label>
           <div className="relative">
             <select 
               value={subject.grade}
               onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
               className="w-full bg-white border border-gray-100 rounded-xl px-3 py-3 text-sm appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary font-bold transition-all cursor-pointer"
+              aria-labelledby={`grade-label-${subject.id}`}
             >
               {Object.keys(GRADING_SYSTEMS[gradingSystem].steps).map(g => (
                 <option key={g} value={g}>{g}</option>
@@ -83,11 +86,13 @@ const SubjectItem = memo(({
           type="number" 
           value={subject.marks === 0 ? '' : subject.marks} 
           onChange={e => updateSubject(subject.id, 'marks', e.target.value === '' ? 0 : parseFloat(e.target.value))}
+          aria-label="Marks percentage"
         />
     </div>
     <button 
       onClick={() => removeSubject(subject.id)}
       className="p-3 rounded-xl bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all self-end md:self-center cursor-pointer"
+      aria-label="Remove subject"
     >
       <Plus size={20} className="rotate-45" />
     </button>
@@ -279,19 +284,28 @@ export default function HomePage() {
   return (
     <div className="w-full">
       <SEO 
-        title="Universal Grade Engine"
+        title="UniGrade - Universal GPA & CGPA Calculator"
         description="Calculate your GPA, CGPA, and grade percentages with UniGrade. The most advanced universal grade calculator supporting 15+ international systems with real-time academic analytics."
         canonical="/"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "UniGrade",
-          "url": "https://unigrade.app",
-          "description": "Universal grade calculator for GPA, CGPA, and Percentage conversions across international grading systems.",
-          "applicationCategory": "EducationalApplication",
-          "operatingSystem": "All",
-          "offers": { "@type": "Offer", "price": "0" }
-        }}
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "UniGrade",
+            "url": "https://unigrade.site",
+            "description": "Universal grade calculator for GPA, CGPA, and Percentage conversions across international grading systems.",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "All",
+            "offers": { "@type": "Offer", "price": "0" }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "UniGrade",
+            "url": "https://unigrade.site",
+            "logo": "https://unigrade.site/logo.png"
+          }
+        ]}
       />
       {/* Hero Section */}
       <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full gpu-accelerate">
@@ -616,7 +630,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full optimize-scrolling">
+      <section className="pt-10 pb-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full optimize-scrolling">
 
          <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-50 grayscale hover:grayscale-0 transition-all">
             <div className="flex items-center gap-3">
