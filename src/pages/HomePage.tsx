@@ -208,7 +208,7 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full overflow-hidden">
+      <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -224,11 +224,11 @@ export default function HomePage() {
               Worldwide GPA & Percentage conversion engine with real-time academic analytics. Precision-built for global education systems.
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <Button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })} className="h-12 px-8 text-sm w-full sm:w-auto">
+              <Button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="h-12 px-8 text-sm w-full sm:w-auto">
                 Open Calculator
               </Button>
               <Button 
-                onClick={() => document.getElementById('global-standards')?.scrollIntoView({ behavior: 'smooth' })} 
+                onClick={() => document.getElementById('global-standards')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
                 variant="outline" 
                 className="h-12 px-8 text-sm w-full sm:w-auto"
               >
@@ -267,7 +267,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
           
           {/* Left: Input Workspace */}
-          <div className="space-y-6 w-full overflow-hidden">
+          <div className="space-y-6 w-full">
             <GlassCard className="p-6 md:p-10">
               <div className="mb-10 text-center md:text-left">
                 <h3 className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-2">Workspace</h3>

@@ -68,7 +68,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       
-      <main className="relative z-10 w-full overflow-hidden flex-grow">
+      <main className="relative z-10 w-full flex-grow">
         {children}
       </main>
       

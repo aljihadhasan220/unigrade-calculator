@@ -63,7 +63,7 @@
 @layer utilities {
   .aurora-bg {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .aurora-1 {
     position: absolute;
