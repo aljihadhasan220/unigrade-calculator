@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 
@@ -8,14 +8,20 @@ import { cn } from './lib/utils';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 
-// Pages
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import PrivacyPage from './pages/PrivacyPage';
-import TermsPage from './pages/TermsPage';
-import ContactPage from './pages/ContactPage';
-import FAQPage from './pages/FAQPage';
-import StandardsPage from './pages/StandardsPage';
+// Pages - Lazy loaded for performance
+const HomePage = lazy(() => import('./pages/HomePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const StandardsPage = lazy(() => import('./pages/StandardsPage'));
+
+const PageLoader = () => (
+  <div className="min-h-[60vh] w-full flex items-center justify-center">
+    <Loader2 className="w-8 h-8 text-primary animate-spin" />
+  </div>
+);
 
 const ScrollToTopButton = () => {
   const [show, setShow] = useState(false);
@@ -86,13 +92,13 @@ export default function App() {
       <ScrollToTopOnRoute />
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/standards" element={<StandardsPage />} />
+          <Route path="/" element={<Suspense fallback={<PageLoader />}><HomePage /></Suspense>} />
+          <Route path="/about" element={<Suspense fallback={<PageLoader />}><AboutPage /></Suspense>} />
+          <Route path="/privacy" element={<Suspense fallback={<PageLoader />}><PrivacyPage /></Suspense>} />
+          <Route path="/terms" element={<Suspense fallback={<PageLoader />}><TermsPage /></Suspense>} />
+          <Route path="/contact" element={<Suspense fallback={<PageLoader />}><ContactPage /></Suspense>} />
+          <Route path="/faq" element={<Suspense fallback={<PageLoader />}><FAQPage /></Suspense>} />
+          <Route path="/standards" element={<Suspense fallback={<PageLoader />}><StandardsPage /></Suspense>} />
         </Routes>
       </Layout>
     </BrowserRouter>

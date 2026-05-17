@@ -79,6 +79,8 @@
     filter: blur(60px);
     z-index: 0;
     pointer-events: none;
+    will-change: filter, transform;
+    transform: translate3d(0, 0, 0);
   }
   .aurora-2 {
     position: absolute;
@@ -90,12 +92,24 @@
     filter: blur(80px);
     z-index: 0;
     pointer-events: none;
+    will-change: filter, transform;
+    transform: translate3d(0, 0, 0);
   }
   .glass-effect {
     background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
     border: 1px solid rgba(124, 77, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+    will-change: backdrop-filter;
+  }
+  .gpu-accelerate {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  .optimize-scrolling {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
   }
 }
 

@@ -22,8 +22,6 @@ import {
   Award
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import { cn } from '../lib/utils';
 import { GRADING_SYSTEMS, type GradingSystem, type Subject, type CalculationResult } from '../types';
 import { GlassCard, Button, Input } from '../components/UI';
@@ -136,9 +134,12 @@ export default function HomePage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const downloadAsPDF = () => {
+  const downloadAsPDF = async () => {
     if (!calculationResult) return;
 
+    const { jsPDF } = await import('jspdf');
+    const { default: autoTable } = await import('jspdf-autotable');
+    
     const doc = new jsPDF();
     const system = GRADING_SYSTEMS[gradingSystem];
 
@@ -208,7 +209,7 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full">
+      <section id="home" className="relative pt-32 md:pt-48 pb-16 px-4 md:px-6 w-full gpu-accelerate">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -239,21 +240,21 @@ export default function HomePage() {
 
           <div className="hidden lg:flex gap-4 pr-6 shrink-0">
             <div className="flex flex-col gap-4 translate-y-10">
-              <GlassCard className="p-4 w-40 text-center animate-bounce-slow">
+              <GlassCard className="p-4 w-40 text-center animate-bounce-slow gpu-accelerate">
                  <div className="text-2xl font-bold">4.0</div>
                  <div className="text-[10px] font-bold text-gray-400 uppercase">USA System</div>
               </GlassCard>
-              <GlassCard className="p-4 w-40 text-center">
+              <GlassCard className="p-4 w-40 text-center gpu-accelerate">
                  <div className="text-2xl font-bold">1st</div>
                  <div className="text-[10px] font-bold text-gray-400 uppercase">UK System</div>
               </GlassCard>
             </div>
             <div className="flex flex-col gap-4">
-               <GlassCard className="p-4 w-40 text-center">
+               <GlassCard className="p-4 w-40 text-center gpu-accelerate">
                  <div className="text-2xl font-bold">A</div>
                  <div className="text-[10px] font-bold text-gray-400 uppercase">ECTS</div>
               </GlassCard>
-               <GlassCard className="p-4 w-40 text-center translate-y-10">
+               <GlassCard className="p-4 w-40 text-center translate-y-10 gpu-accelerate">
                  <div className="text-2xl font-bold">10.0</div>
                  <div className="text-[10px] font-bold text-gray-400 uppercase">India</div>
               </GlassCard>
@@ -263,7 +264,7 @@ export default function HomePage() {
       </section>
 
       {/* Main Calculator Section */}
-      <section id="calculator" className="py-12 md:px-6 max-w-7xl mx-auto relative z-10 w-full px-4">
+      <section id="calculator" className="py-12 md:px-6 max-w-7xl mx-auto relative z-10 w-full px-4 gpu-accelerate">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
           
           {/* Left: Input Workspace */}
@@ -507,20 +508,19 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Standards Teaser */}
-      <section id="global-standards" className="py-24 px-4 md:px-6 max-w-7xl mx-auto scroll-mt-24 w-full">
+      <section id="global-standards" className="py-24 px-4 md:px-6 max-w-7xl mx-auto scroll-mt-24 w-full optimize-scrolling">
          <div className="text-center mb-16 px-4">
             <label className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-4 block">Engine Benchmarks</label>
             <h2 className="text-3xl md:text-5xl font-extrabold font-display mb-4 tracking-tight">Worldwide Grading Index</h2>
             <p className="text-gray-500 max-w-2xl mx-auto font-medium text-base md:text-lg">
-              Compare precision benchmarks across international systems used for official conversions in 2026.
+               Compare precision benchmarks across international systems used for official conversions in 2026.
             </p>
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {Object.entries(GRADING_SYSTEMS).slice(0, 3).map(([key, system]) => (
-               <GlassCard key={key} className="p-8 hover:border-primary/30 transition-all group overflow-hidden h-full flex flex-col">
+               <GlassCard key={key} className="p-8 hover:border-primary/30 transition-all group overflow-hidden h-full flex flex-col gpu-accelerate">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
                       <Globe size={20} />
@@ -547,7 +547,8 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full">
+      <section className="py-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full optimize-scrolling">
+
          <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-50 grayscale hover:grayscale-0 transition-all">
             <div className="flex items-center gap-3">
                <ShieldCheck size={24} className="text-gray-400" />
