@@ -13,9 +13,9 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="py-12 md:py-20 px-4 md:px-6 text-center relative z-10 bg-white w-full border-t border-gray-100">
+    <footer className="py-8 md:py-20 px-4 md:px-6 text-center relative z-10 bg-white w-full border-t border-gray-100">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-center gap-2 mb-8">
+        <div className="flex items-center justify-center gap-2 mb-6 md:mb-8">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
             <span className="text-white font-black text-lg">✦</span>
           </div>

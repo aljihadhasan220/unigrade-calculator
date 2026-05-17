@@ -5,10 +5,10 @@ import { Info, Globe, Mail } from 'lucide-react';
 
 export default function ContactPage() {
   return (
-    <div className="pt-32 pb-20 px-6">
+    <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <GlassCard className="p-8 md:p-16 border-2 border-primary/5">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-16">
+        <GlassCard className="p-6 md:p-16 border-2 border-primary/5">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 md:gap-16">
             <div>
               <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 block">Get in Touch</label>
               <h1 className="text-4xl md:text-5xl font-extrabold font-display mb-6 tracking-tight">Have questions or feedback?</h1>

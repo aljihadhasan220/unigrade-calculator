@@ -216,7 +216,7 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left max-w-2xl"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#111827] leading-tight mb-6 font-display tracking-tight">
+            <h1 className="text-[2.3rem] sm:text-5xl md:text-7xl font-extrabold text-[#111827] leading-[1.15] mb-6 font-display tracking-tight px-1 sm:px-0">
               Universal Grade <br className="hidden sm:block" />
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Engine</span>
             </h1>
@@ -415,8 +415,8 @@ export default function HomePage() {
           </div>
 
           {/* Right: Results Panel */}
-          <div className="space-y-6 lg:sticky lg:top-32 w-full max-w-md mx-auto lg:max-w-none">
-            <GlassCard className="p-8 border-2 border-primary/5 flex flex-col">
+          <div className="space-y-6 lg:sticky lg:top-32 w-full lg:max-w-none">
+            <GlassCard className="p-6 md:p-8 border-2 border-primary/5 flex flex-col">
               <div className="flex items-center justify-between mb-10">
                 <label className="text-[10px] font-black text-primary/60 uppercase tracking-[0.2em]">Analytical Output</label>
                 <div className="flex gap-1.5">

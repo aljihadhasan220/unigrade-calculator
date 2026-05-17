@@ -5,8 +5,8 @@ import { Globe, ShieldCheck } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 pb-20 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -53,7 +53,7 @@ export default function AboutPage() {
               <img 
                 src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" 
                 alt="Students collaborating" 
-                className="w-full h-[400px] md:h-[600px] object-cover rounded-[18px]"
+                className="w-full h-[280px] md:h-[600px] object-cover rounded-[18px]"
                 referrerPolicy="no-referrer"
               />
             </GlassCard>

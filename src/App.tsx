@@ -60,7 +60,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className={cn(
-      "font-sans selection:bg-primary/10 selection:text-primary aurora-bg w-full relative", 
+      "min-h-screen font-sans selection:bg-primary/10 selection:text-primary aurora-bg w-full relative flex flex-col", 
       darkMode && "dark bg-[#111827] text-white"
     )}>
       <div className="aurora-1" />
@@ -68,7 +68,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       
-      <main className="relative z-10 w-full overflow-hidden">
+      <main className="relative z-10 w-full overflow-hidden flex-grow">
         {children}
       </main>
       
