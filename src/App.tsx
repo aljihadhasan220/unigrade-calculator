@@ -60,11 +60,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className={cn(
-      "min-h-screen font-sans selection:bg-primary/10 selection:text-primary aurora-bg w-full relative flex flex-col", 
+      "font-sans selection:bg-primary/10 selection:text-primary aurora-bg w-full relative flex flex-col", 
       darkMode && "dark bg-[#111827] text-white"
     )}>
-      <div className="aurora-1" />
-      <div className="aurora-2" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="aurora-1" />
+        <div className="aurora-2" />
+      </div>
       
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       
