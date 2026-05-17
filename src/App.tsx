@@ -98,18 +98,19 @@ const Input = ({ label, ...props }: { label: string } & React.InputHTMLAttribute
 const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v: boolean) => void }) => (
   <nav className="fixed top-8 left-4 right-4 md:left-6 md:right-6 z-50 bg-white/40 backdrop-blur-2xl rounded-[20px] shadow-2xl shadow-primary/10 border border-white/60">
     <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-18 flex items-center justify-between gap-2">
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-2 shrink-0 cursor-pointer" onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}>
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
           <span className="text-white font-black text-lg">✦</span>
         </div>
-        <span className="text-lg md:text-xl font-extrabold tracking-tight text-text font-display">UniGrade</span>
+        <span className="text-lg md:text-xl font-extrabold tracking-tight text-text font-display lg:block hidden">UniGrade</span>
       </div>
       
       <div className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-600">
-        <a href="#calculator" className="hover:text-primary transition-colors">Calculator</a>
-        <a href="#global-standards" className="hover:text-primary transition-colors">Standards</a>
-        <a href="#features" className="hover:text-primary transition-colors">Features</a>
-        <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
+        <button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Home</button>
+        <button onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Calculator</button>
+        <button onClick={() => document.getElementById('global-standards')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Standards</button>
+        <button onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">Features</button>
+        <button onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors">FAQ</button>
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
@@ -161,7 +162,17 @@ export default function App() {
   const [previousCgpa, setPreviousCgpa] = useState<number | ''>('');
   const [previousCredits, setPreviousCredits] = useState<number | ''>('');
   const [copied, setCopied] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  // Scroll Listener for Back to Top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Load from LocalStorage
   useEffect(() => {
@@ -347,7 +358,7 @@ export default function App() {
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-16 px-6">
+      <section id="home" className="relative pt-40 pb-16 px-6 scroll-mt-32">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -680,7 +691,7 @@ export default function App() {
       </section>
 
       {/* Features Strip */}
-      <section id="features" className="py-20 px-6 max-w-7xl mx-auto border-t border-gray-50">
+      <section id="features" className="py-20 px-6 max-w-7xl mx-auto border-t border-gray-50 scroll-mt-32">
         <div className="flex flex-wrap justify-center gap-12">
           {[
             { icon: Check, text: 'Fast Cloud Calculation' },
@@ -699,7 +710,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-20 px-6 bg-white/50 border-t border-gray-50">
+      <section id="faq" className="py-20 px-6 bg-white/50 border-t border-gray-50 scroll-mt-32">
         <div className="max-w-xl mx-auto space-y-4 text-center mb-10">
            <h2 className="text-3xl font-extrabold font-display leading-[0.9]">Common Questions</h2>
            <p className="text-sm text-gray-400">Everything you need to know about our precision calc engine.</p>
@@ -729,6 +740,21 @@ export default function App() {
            </p>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+            className="fixed bottom-8 right-8 z-[60] w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white shadow-2xl shadow-primary/40 flex items-center justify-center hover:opacity-90 transition-all active:scale-95"
+          >
+            <ChevronDown className="rotate-180" size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
