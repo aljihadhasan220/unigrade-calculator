@@ -2,11 +2,13 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { GlassCard, Button } from '../components/UI';
 import { Info, Globe, Mail } from 'lucide-react';
+import BackButton from '../components/BackButton';
 
 export default function ContactPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
+        <BackButton />
         <GlassCard className="p-6 md:p-16 border-2 border-primary/5">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 md:gap-16">
             <div>

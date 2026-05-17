@@ -3,15 +3,17 @@ import { motion } from 'motion/react';
 import { GlassCard } from '../components/UI';
 import { Globe } from 'lucide-react';
 import { GRADING_SYSTEMS } from '../types';
+import BackButton from '../components/BackButton';
 
 export default function StandardsPage() {
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
+        <BackButton />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           className="text-center mb-16"
         >
           <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
             <Globe size={32} />
