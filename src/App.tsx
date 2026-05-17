@@ -28,6 +28,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { cn } from './lib/utils';
 import { GRADING_SYSTEMS, type GradingSystem, type Subject, type CalculationResult } from './types';
 
@@ -263,16 +265,77 @@ export default function App() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const downloadAsImage = async () => {
-    if (!resultRef.current) return;
-    const canvas = await html2canvas(resultRef.current, {
-      backgroundColor: '#f5f7ff',
-      scale: 2
+  const downloadAsPDF = () => {
+    if (!calculationResult) return;
+
+    const doc = new jsPDF();
+    const system = GRADING_SYSTEMS[gradingSystem];
+
+    // Header
+    doc.setFontSize(22);
+    doc.setTextColor(124, 77, 255); // Primary color
+    doc.text('UniGrade Academic Report', 14, 22);
+
+    doc.setFontSize(10);
+    doc.setTextColor(156, 163, 175); // Gray-400
+    doc.text(`Issued on: ${new Date().toLocaleDateString()}`, 14, 30);
+
+    // Summary Section
+    doc.setFontSize(14);
+    doc.setTextColor(17, 24, 39); // Text color
+    doc.text('Performance Summary', 14, 45);
+
+    const summaryData = [
+      ['Grading System', system.name],
+      ['Previous CGPA', previousCgpa === '' ? '0.00' : previousCgpa.toFixed(2)],
+      ['Previous Credits', previousCredits === '' ? '0' : previousCredits.toString()],
+      ['Current GPA', calculationResult.gpa.toFixed(2)],
+      ['Final CGPA', calculationResult.cgpa.toFixed(2)],
+      ['Overall Percentage', `${calculationResult.percentage.toFixed(1)}%`],
+      ['Performance Status', calculationResult.status]
+    ];
+
+    autoTable(doc, {
+      startY: 50,
+      head: [['Metric', 'Value']],
+      body: summaryData,
+      theme: 'striped',
+      headStyles: { fillColor: [124, 77, 255], fontStyle: 'bold' },
+      styles: { fontSize: 10 }
     });
-    const link = document.createElement('a');
-    link.download = 'unigrade-results.png';
-    link.href = canvas.toDataURL();
-    link.click();
+
+    // Subject Details
+    const finalY = (doc as any).lastAutoTable.finalY + 15;
+    doc.setFontSize(14);
+    doc.text('Academic Records', 14, finalY);
+
+    const subjectsData = subjects.map(s => [
+      s.name || 'Unnamed Subject',
+      s.credits.toString(),
+      s.grade,
+      `${s.marks}%`
+    ]);
+
+    autoTable(doc, {
+      startY: finalY + 5,
+      head: [['Subject Name', 'Credits', 'Grade', 'Marks %']],
+      body: subjectsData,
+      theme: 'grid',
+      headStyles: { fillColor: [124, 77, 255], fontStyle: 'bold' },
+      styles: { fontSize: 9 }
+    });
+
+    // Footer
+    const pageCount = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(9);
+      doc.setTextColor(156, 163, 175);
+      doc.text('UniGrade - Precision Academic Metrics © 2026', 14, doc.internal.pageSize.height - 10);
+      doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 35, doc.internal.pageSize.height - 10);
+    }
+
+    doc.save('UniGrade_Report.pdf');
   };
 
   return (
@@ -528,7 +591,7 @@ export default function App() {
                       <Button onClick={copyResult} variant="outline" className="text-[11px] py-4 h-auto font-black shadow-none border-gray-100 tracking-wider">
                         {copied ? 'COPIED!' : 'COPY RESULT'}
                       </Button>
-                      <Button onClick={downloadAsImage} variant="secondary" className="text-[11px] py-4 h-auto font-black tracking-wider shadow-xl shadow-black/10">
+                      <Button onClick={downloadAsPDF} variant="secondary" className="text-[11px] py-4 h-auto font-black tracking-wider shadow-xl shadow-black/10">
                         SAVE REPORT
                       </Button>
                     </div>
