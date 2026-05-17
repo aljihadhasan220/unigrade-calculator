@@ -12,7 +12,8 @@ export default function AboutPage() {
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12">
           <motion.div 
           initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           className="flex-1"
         >
           <label className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 block">Our Mission</label>
@@ -49,7 +50,8 @@ export default function AboutPage() {
 
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           className="flex-1 w-full"
         >
            <GlassCard className="p-2 overflow-hidden border-2 border-primary/5">
@@ -58,6 +60,8 @@ export default function AboutPage() {
                 alt="Students collaborating" 
                 className="w-full h-[280px] md:h-[600px] object-cover rounded-[18px]"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
             </GlassCard>
         </motion.div>

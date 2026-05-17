@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react';
 import { 
   Plus, 
   Trash2, 
@@ -26,6 +26,70 @@ import { cn } from '../lib/utils';
 import { GRADING_SYSTEMS, type GradingSystem, type Subject, type CalculationResult } from '../types';
 import { GlassCard, Button, Input } from '../components/UI';
 
+const SubjectItem = memo(({ 
+  subject, 
+  gradingSystem, 
+  updateSubject, 
+  removeSubject 
+}: { 
+  subject: Subject; 
+  gradingSystem: GradingSystem; 
+  updateSubject: (id: string, field: keyof Subject, value: any) => void; 
+  removeSubject: (id: string) => void;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.98 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.98 }}
+    layout="size"
+    className="group flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary/20 transition-all shadow-sm w-full gpu-accelerate"
+  >
+    <div className="flex-1 w-full grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-4">
+        <div className="col-span-2 md:col-span-1">
+          <Input 
+            label="Name" 
+            placeholder="Subject Name" 
+            value={subject.name} 
+            onChange={e => updateSubject(subject.id, 'name', e.target.value)}
+          />
+        </div>
+        <Input 
+          label="Credits" 
+          type="number" 
+          value={subject.credits === 0 ? '' : subject.credits} 
+          onChange={e => updateSubject(subject.id, 'credits', e.target.value === '' ? 0 : parseFloat(e.target.value))}
+        />
+        <div className="min-w-0">
+          <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1 mb-1.5 block">Grade</label>
+          <div className="relative">
+            <select 
+              value={subject.grade}
+              onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
+              className="w-full bg-white border border-gray-100 rounded-xl px-3 py-3 text-sm appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary font-bold transition-all cursor-pointer"
+            >
+              {Object.keys(GRADING_SYSTEMS[gradingSystem].steps).map(g => (
+                <option key={g} value={g}>{g}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none w-4 h-4" />
+          </div>
+        </div>
+        <Input 
+          label="Marks %" 
+          type="number" 
+          value={subject.marks === 0 ? '' : subject.marks} 
+          onChange={e => updateSubject(subject.id, 'marks', e.target.value === '' ? 0 : parseFloat(e.target.value))}
+        />
+    </div>
+    <button 
+      onClick={() => removeSubject(subject.id)}
+      className="p-3 rounded-xl bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all self-end md:self-center cursor-pointer"
+    >
+      <Plus size={20} className="rotate-45" />
+    </button>
+  </motion.div>
+));
+
 export default function HomePage() {
   const [gradingSystem, setGradingSystem] = useState<GradingSystem>('USA');
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -50,34 +114,36 @@ export default function HomePage() {
     }
   }, []);
 
-  // Save to LocalStorage
+  // Save to LocalStorage - Debounced for performance
   useEffect(() => {
-    localStorage.setItem('unigrade_data', JSON.stringify({
-      subjects,
-      gradingSystem,
-      previousCgpa,
-      previousCredits
-    }));
+    const timer = setTimeout(() => {
+      localStorage.setItem('unigrade_data', JSON.stringify({
+        subjects,
+        gradingSystem,
+        previousCgpa,
+        previousCredits
+      }));
+    }, 1000);
+    return () => clearTimeout(timer);
   }, [subjects, gradingSystem, previousCgpa, previousCredits]);
 
-  const addSubject = () => {
-    const newSubject: Subject = {
+  const addSubject = useCallback(() => {
+    setSubjects(prev => [...prev, {
       id: Math.random().toString(36).substr(2, 9),
       name: '',
       credits: 3,
       grade: Object.keys(GRADING_SYSTEMS[gradingSystem].steps)[0] || 'A',
       marks: 80
-    };
-    setSubjects([...subjects, newSubject]);
-  };
+    }]);
+  }, [gradingSystem]);
 
-  const updateSubject = (id: string, field: keyof Subject, value: any) => {
-    setSubjects(subjects.map(s => s.id === id ? { ...s, [field]: value } : s));
-  };
+  const updateSubject = useCallback((id: string, field: keyof Subject, value: any) => {
+    setSubjects(prev => prev.map(s => s.id === id ? { ...s, [field]: value } : s));
+  }, []);
 
-  const removeSubject = (id: string) => {
-    setSubjects(subjects.filter(s => s.id !== id));
-  };
+  const removeSubject = useCallback((id: string) => {
+    setSubjects(prev => prev.filter(s => s.id !== id));
+  }, []);
 
   const calculationResult = useMemo((): CalculationResult | null => {
     if (subjects.length === 0) return null;
@@ -213,7 +279,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left max-w-2xl"
           >
@@ -240,24 +307,52 @@ export default function HomePage() {
 
           <div className="hidden lg:flex gap-4 pr-6 shrink-0">
             <div className="flex flex-col gap-4 translate-y-10">
-              <GlassCard className="p-4 w-40 text-center animate-bounce-slow gpu-accelerate">
-                 <div className="text-2xl font-bold">4.0</div>
-                 <div className="text-[10px] font-bold text-gray-400 uppercase">USA System</div>
-              </GlassCard>
-              <GlassCard className="p-4 w-40 text-center gpu-accelerate">
-                 <div className="text-2xl font-bold">1st</div>
-                 <div className="text-[10px] font-bold text-gray-400 uppercase">UK System</div>
-              </GlassCard>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <GlassCard className="p-4 w-40 text-center animate-bounce-slow gpu-accelerate">
+                   <div className="text-2xl font-bold">4.0</div>
+                   <div className="text-[10px] font-bold text-gray-400 uppercase">USA System</div>
+                </GlassCard>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <GlassCard className="p-4 w-40 text-center gpu-accelerate">
+                   <div className="text-2xl font-bold">1st</div>
+                   <div className="text-[10px] font-bold text-gray-400 uppercase">UK System</div>
+                </GlassCard>
+              </motion.div>
             </div>
             <div className="flex flex-col gap-4">
-               <GlassCard className="p-4 w-40 text-center gpu-accelerate">
-                 <div className="text-2xl font-bold">A</div>
-                 <div className="text-[10px] font-bold text-gray-400 uppercase">ECTS</div>
-              </GlassCard>
-               <GlassCard className="p-4 w-40 text-center translate-y-10 gpu-accelerate">
-                 <div className="text-2xl font-bold">10.0</div>
-                 <div className="text-[10px] font-bold text-gray-400 uppercase">India</div>
-              </GlassCard>
+               <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                 <GlassCard className="p-4 w-40 text-center gpu-accelerate">
+                   <div className="text-2xl font-bold">A</div>
+                   <div className="text-[10px] font-bold text-gray-400 uppercase">ECTS</div>
+                </GlassCard>
+              </motion.div>
+               <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                 <GlassCard className="p-4 w-40 text-center translate-y-10 gpu-accelerate">
+                   <div className="text-2xl font-bold">10.0</div>
+                   <div className="text-[10px] font-bold text-gray-400 uppercase">India</div>
+                </GlassCard>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -315,7 +410,7 @@ export default function HomePage() {
                   <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Academic Records</h4>
                 </div>
 
-                <AnimatePresence mode="popLayout">
+                <AnimatePresence mode="popLayout" initial={false}>
                   {subjects.length === 0 ? (
                     <motion.div 
                       key="empty"
@@ -327,59 +422,14 @@ export default function HomePage() {
                       <p className="text-[10px] font-bold uppercase tracking-widest text-center px-4">Start by adding your subjects</p>
                     </motion.div>
                   ) : (
-                    subjects.map((subject, index) => (
-                      <motion.div
-                        key={subject.id}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        layout
-                        className="group flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary/20 transition-all shadow-sm w-full"
-                      >
-                        <div className="flex-1 w-full grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-4">
-                            <div className="col-span-2 md:col-span-1">
-                              <Input 
-                                label="Name" 
-                                placeholder="Subject Name" 
-                                value={subject.name} 
-                                onChange={e => updateSubject(subject.id, 'name', e.target.value)}
-                              />
-                            </div>
-                            <Input 
-                              label="Credits" 
-                              type="number" 
-                              value={subject.credits === 0 ? '' : subject.credits} 
-                              onChange={e => updateSubject(subject.id, 'credits', e.target.value === '' ? 0 : parseFloat(e.target.value))}
-                            />
-                            <div className="min-w-0">
-                              <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1 mb-1.5 block">Grade</label>
-                              <div className="relative">
-                                <select 
-                                  value={subject.grade}
-                                  onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
-                                  className="w-full bg-white border border-gray-100 rounded-xl px-3 py-3 text-sm appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary font-bold transition-all cursor-pointer"
-                                >
-                                  {Object.keys(GRADING_SYSTEMS[gradingSystem].steps).map(g => (
-                                    <option key={g} value={g}>{g}</option>
-                                  ))}
-                                </select>
-                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none w-4 h-4" />
-                              </div>
-                            </div>
-                            <Input 
-                              label="Marks %" 
-                              type="number" 
-                              value={subject.marks === 0 ? '' : subject.marks} 
-                              onChange={e => updateSubject(subject.id, 'marks', e.target.value === '' ? 0 : parseFloat(e.target.value))}
-                            />
-                        </div>
-                        <button 
-                          onClick={() => removeSubject(subject.id)}
-                          className="p-3 rounded-xl bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all self-end md:self-center"
-                        >
-                          <Plus size={20} className="rotate-45" />
-                        </button>
-                      </motion.div>
+                    subjects.map((subject) => (
+                      <SubjectItem 
+                        key={subject.id} 
+                        subject={subject} 
+                        gradingSystem={gradingSystem} 
+                        updateSubject={updateSubject} 
+                        removeSubject={removeSubject} 
+                      />
                     ))
                   )}
                 </AnimatePresence>

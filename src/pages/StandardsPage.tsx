@@ -12,7 +12,8 @@ export default function StandardsPage() {
         <BackButton />
         <motion.div
            initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
            className="text-center mb-16"
         >
           <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">

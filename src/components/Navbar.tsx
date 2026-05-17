@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sun, Moon } from 'lucide-react';
 import { Button } from './UI';
 
-export const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v: boolean) => void }) => {
+export const Navbar = memo(({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v: boolean) => void }) => {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -45,4 +45,4 @@ export const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMo
       </div>
     </nav>
   );
-};
+});

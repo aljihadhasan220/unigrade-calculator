@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export const Footer = () => {
+export const Footer = memo(() => {
   const scrollToSection = (id: string|undefined) => {
     if (!id) return;
     const isHome = window.location.pathname === '/';
@@ -40,4 +40,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});
