@@ -8,59 +8,67 @@ import { SEO } from '../components/SEO';
 const blogPosts = [
   {
     title: "How to Calculate GPA",
-    description: "A comprehensive guide on understanding Grade Point Average (GPA) and how to calculate it using credits and grade points.",
+    description: "A comprehensive guide on understanding Grade Point Average (GPA) using our <a href='/grade-calculator' class='text-primary font-bold'>Universal Grade Calculator</a> for precise results.",
     category: "Guides",
     readTime: "5 min read",
-    author: "Academic Team"
+    author: "Academic Team",
+    url: "/blog/calculate-gpa"
   },
   {
-    title: "What is a Weighted Grade Calculator?",
-    description: "Learn how weighted grades differ from standard averages and why they provide a more accurate picture of your academic standing.",
+    title: "Weighted Grade Explained",
+    description: "Learn how weighted grades differ from standard averages and why they provide a more accurate picture of your academic standing. Check our <a href='/weighted-grade-calculator' class='text-primary font-bold'>Weighted Calculator</a>.",
     category: "Education",
     readTime: "4 min read",
-    author: "UniGrade Experts"
+    author: "UniGrade Experts",
+    url: "/blog/weighted-grade-calculator"
   },
   {
-    title: "Final Grade Calculator Explained",
-    description: "Not sure what you need on your final exam? We break down the math behind calculating required final scores to hit your GPA goals.",
+    title: "Final Grade Calculator Guide",
+    description: "Not sure what you need on your final exam? We break down the math behind our <a href='/final-grade-calculator' class='text-primary font-bold'>Final Grade Planner</a> to help you hit your goals.",
     category: "Tools",
     readTime: "6 min read",
-    author: "Academic Team"
+    author: "Academic Team",
+    url: "/blog/final-grade-calculator"
   },
   {
-    title: "GPA vs CGPA Differences",
+    title: "GPA vs CGPA",
     description: "Understand the subtle but critical differences between GPA and Cumulative GPA (CGPA) in international grading standards.",
     category: "Comparison",
     readTime: "3 min read",
-    author: "UniGrade Experts"
+    author: "UniGrade Experts",
+    url: "/blog/gpa-vs-cgpa"
   },
   {
-    title: "US Grading Scale Guide",
-    description: "An in-depth look at the 4.0 scale used in the United States, including honors/AP weighting and letter grade conversions.",
+    title: "US Grading System",
+    description: "An in-depth look at the 4.0 scale used in the United States, including honors/AP weighting and letter grade conversions supported in our <a href='/grade-calculator' class='text-primary font-bold'>Grade Engine</a>.",
     category: "Standards",
     readTime: "7 min read",
-    author: "Academic Team"
+    author: "Academic Team",
+    url: "/blog/us-grading-scale"
   },
   {
     title: "Percentage to GPA Conversion",
     description: "Converting percentage marks to GPA can be tricky. This guide provides reliable formulas for global standards compatibility.",
     category: "Math",
     readTime: "5 min read",
-    author: "UniGrade Experts"
+    author: "UniGrade Experts",
+    url: "/blog/percentage-to-gpa"
   },
   {
     title: "Test Grade Calculator Guide",
-    description: "How to use our test grade calculator to track individual quiz, midterm, and lab performances throughout the semester.",
+    description: "How to use our <a href='/test-grade-calculator' class='text-primary font-bold'>Test Grade Calculator</a> to track individual quiz, midterm, and lab performances throughout the semester.",
     category: "Guides",
     readTime: "4 min read",
-    author: "Academic Team"
+    author: "Academic Team",
+    url: "/blog/test-grade-calculator"
   },
   {
-    title: "Academic Performance Tracking Tips",
+    title: "Academic Performance Tips",
     description: "Best practices for students to monitor their grades, stay organized, and use data-driven insights to improve their results.",
     category: "Student Tips",
     readTime: "5 min read",
-    author: "UniGrade Experts"
+    author: "UniGrade Experts",
+    url: "/blog/performance-tips"
   }
 ];
 
@@ -71,6 +79,28 @@ export default function BlogPage() {
         title="UniGrade Blog | GPA, CGPA & Grade Calculator Guides"
         description="Explore UniGrade academic guides, GPA calculation tutorials, weighted grade explanations, grading systems, and student resources."
         canonical="/blog"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": "UniGrade Academic Blog",
+          "description": "Guides and resources for students on GPA calculation and academic performance.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "UniGrade",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://unigrade.site/og-image.png"
+            }
+          },
+          "blogPost": blogPosts.map(post => ({
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": post.description,
+            "author": { "@type": "Person", "name": post.author },
+            "publisher": { "@type": "Organization", "name": "UniGrade" },
+            "url": `https://unigrade.site${post.url}`
+          }))
+        }}
       />
       
       <div className="max-w-7xl mx-auto">
@@ -121,9 +151,10 @@ export default function BlogPage() {
                     {post.title}
                   </h2>
                   
-                  <p className="text-sm text-gray-500 font-medium leading-relaxed mb-8 line-clamp-3">
-                    {post.description}
-                  </p>
+                  <div 
+                    className="text-sm text-gray-500 font-medium leading-relaxed mb-8 line-clamp-4"
+                    dangerouslySetInnerHTML={{ __html: post.description }}
+                  />
                   
                   <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
                     <div className="flex items-center gap-2">

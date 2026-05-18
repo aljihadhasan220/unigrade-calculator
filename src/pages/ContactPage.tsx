@@ -78,43 +78,51 @@ export default function ContactPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Full Name</label>
+                  <label htmlFor="full-name" className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Full Name</label>
                   <input 
+                    id="full-name"
                     type="text" 
                     name="name" 
                     required 
                     placeholder="John Doe" 
+                    aria-required="true"
                     className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Email Address</label>
+                  <label htmlFor="email-address" className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Email Address</label>
                   <input 
+                    id="email-address"
                     type="email" 
                     name="email" 
                     required 
                     placeholder="john@example.com" 
+                    aria-required="true"
                     className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                   />
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Subject</label>
+                <label htmlFor="subject" className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Subject</label>
                 <input 
+                  id="subject"
                   type="text" 
                   name="subject" 
                   required 
                   placeholder="Grading System Request" 
+                  aria-required="true"
                   className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Your Message</label>
+                <label htmlFor="message" className="text-[11px] font-bold text-gray-400 uppercase tracking-tight ml-1">Your Message</label>
                 <textarea 
+                  id="message"
                   name="message" 
                   required 
                   placeholder="How can we help you today?" 
                   rows={6}
+                  aria-required="true"
                   className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium resize-none text-base"
                 />
               </div>

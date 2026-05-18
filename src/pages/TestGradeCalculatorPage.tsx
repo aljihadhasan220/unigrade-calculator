@@ -13,6 +13,16 @@ export default function TestGradeCalculatorPage() {
         title="Test Grade Calculator | UniGrade"
         description="Quickly calculate quiz, assignment, and test grades with real-time academic analysis. Convert raw scores to percentages and letter grades."
         canonical="/test-grade-calculator"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Test Grade Calculator",
+          "description": "Instantly convert raw quiz/test scores to grades.",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "url": "https://unigrade.site/test-grade-calculator",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       
       <div className="max-w-7xl mx-auto">

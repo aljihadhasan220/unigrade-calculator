@@ -177,7 +177,7 @@ export default function HomePage() {
             <GlassCard className="p-8 h-full">
               <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Grade Calculator</h2>
               <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Our universal grade calculator is designed for students worldwide to track and manage their academic results with precision. Convert letter grades into numerical GPA values instantly across 15+ different international standards.
+                Our <a href="/grade-calculator" className="text-primary hover:underline font-bold">universal grade calculator</a> is designed for students worldwide to track and manage their academic results with precision. Convert letter grades into numerical GPA values instantly across 15+ different international standards.
               </p>
             </GlassCard>
           </motion.div>
@@ -191,7 +191,7 @@ export default function HomePage() {
             <GlassCard className="p-8 h-full">
               <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Weighted Grade Calculator</h2>
               <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Use the weighted grade calculator to account for varying course credits and importance. By inputting the specific weight of each assignment or exam, you get a reflective data point of your semester's true performance.
+                Use the <a href="/weighted-grade-calculator" className="text-primary hover:underline font-bold">weighted grade calculator</a> to account for varying course credits and importance. By inputting the specific weight of each assignment or exam, you get a reflective data point of your semester's true performance.
               </p>
             </GlassCard>
           </motion.div>
@@ -205,7 +205,7 @@ export default function HomePage() {
             <GlassCard className="p-8 h-full">
               <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Final Grade Calculator</h2>
               <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Plan your success with the UniGrade final grade calculator. Reverse-engineer your targets to find out exactly what marks you need on your upcoming finals to achieve your desired GPA goal or maintain your honors status.
+                Plan your success with the UniGrade <a href="/final-grade-calculator" className="text-primary hover:underline font-bold">final grade calculator</a>. Reverse-engineer your targets to find out exactly what marks you need on your upcoming finals to achieve your desired GPA goal.
               </p>
             </GlassCard>
           </motion.div>
@@ -219,7 +219,7 @@ export default function HomePage() {
             <GlassCard className="p-8 h-full">
               <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Test Grade Calculator</h2>
               <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Our test grade calculator allows you to log individual scores for quizzes, midterms, and lab reports. Gain real-time insights into how each specific testing metric influences your overall grade percentage throughout the term.
+                Our <a href="/test-grade-calculator" className="text-primary hover:underline font-bold">test grade calculator</a> allows you to log individual scores for quizzes, midterms, and lab reports. Gain real-time insights into how each specific testing metric influences your overall grade percentage.
               </p>
             </GlassCard>
           </motion.div>

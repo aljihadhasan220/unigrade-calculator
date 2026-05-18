@@ -13,6 +13,16 @@ export default function GradeCalculatorPage() {
         title="Grade Calculator | UniGrade"
         description="A complete online grade calculator for GPA, CGPA, grades, and percentages. Supporting international systems with precision analytics."
         canonical="/grade-calculator"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "UniGrade Universal Grade Calculator",
+          "description": "Calculate GPA, CGPA, and grade percentages with precision.",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "url": "https://unigrade.site/grade-calculator",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       
       <div className="max-w-7xl mx-auto">
@@ -56,11 +66,11 @@ export default function GradeCalculatorPage() {
               <ul className="space-y-3">
                 <li className="flex gap-3">
                   <CheckCircle2 className="text-primary shrink-0" size={20} />
-                  <span>Select your institutional <strong>Grading System</strong> (e.g., USA 4.0, India 10.0, UK Classification).</span>
+                  <span>Select your institutional <strong>Grading System</strong> (e.g., USA 4.0, India 10.0, UK Classification). Learn more about <a href="/standards" className="text-primary hover:underline font-bold">Grading Standards</a>.</span>
                 </li>
                 <li className="flex gap-3">
                   <CheckCircle2 className="text-primary shrink-0" size={20} />
-                  <span>Add your <strong>Previous CGPA</strong> and total credits if you want to see your cumulative standing.</span>
+                  <span>Add your <strong>Previous CGPA</strong> and total credits if you want to see your cumulative standing using our <a href="/weighted-grade-calculator" className="text-primary hover:underline font-bold">Weighted Algorithm</a>.</span>
                 </li>
                 <li className="flex gap-3">
                   <CheckCircle2 className="text-primary shrink-0" size={20} />
@@ -68,7 +78,7 @@ export default function GradeCalculatorPage() {
                 </li>
                 <li className="flex gap-3">
                   <CheckCircle2 className="text-primary shrink-0" size={20} />
-                  <span>View your real-time <strong>GPA Index</strong> and detailed performance analysis in the right panel.</span>
+                  <span>View your real-time <strong>GPA Index</strong> and detailed performance analysis. Curious about finals? Try the <a href="/final-grade-calculator" className="text-primary hover:underline font-bold">Final Grade Planner</a>.</span>
                 </li>
               </ul>
             </div>

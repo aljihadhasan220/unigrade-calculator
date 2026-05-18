@@ -13,6 +13,16 @@ export default function FinalGradeCalculatorPage() {
         title="Final Grade Calculator | UniGrade"
         description="Calculate the grade you need on your final exam to achieve your target GPA or course score. Plan your success with precision academic targets."
         canonical="/final-grade-calculator"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Final Grade Calculator",
+          "description": "Calculate required final exam grades for target goals.",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "url": "https://unigrade.site/final-grade-calculator",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       
       <div className="max-w-7xl mx-auto">

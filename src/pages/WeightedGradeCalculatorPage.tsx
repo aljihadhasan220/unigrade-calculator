@@ -13,6 +13,16 @@ export default function WeightedGradeCalculatorPage() {
         title="Weighted Grade Calculator | UniGrade"
         description="Calculate weighted grades, weighted GPA, and academic performance accurately. Support for custom credit weightings and grading scales."
         canonical="/weighted-grade-calculator"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Weighted Grade Calculator",
+          "description": "Advanced weighted grade and GPA calculation engine.",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "url": "https://unigrade.site/weighted-grade-calculator",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       
       <div className="max-w-7xl mx-auto">

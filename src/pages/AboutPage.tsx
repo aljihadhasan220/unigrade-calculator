@@ -29,10 +29,10 @@ export default function AboutPage() {
               UniGrade was born out of a simple need: a reliable, universal way for students to track their academic progress without complex spreadsheets or restricted institutional software.
             </p>
             <p>
-              Whether you're studying in the USA, UK, India, or Europe, our platform provides instant GPA, CGPA, and percentage conversion following international benchmarks.
+              Whether you're studying in the USA, UK, India, or Europe, our platform provides instant <a href="/grade-calculator" className="text-primary hover:underline font-bold">GPA</a>, <a href="/weighted-grade-calculator" className="text-primary hover:underline font-bold">CGPA</a>, and percentage conversion following international benchmarks.
             </p>
             <p>
-              We prioritize accuracy and simplicity, ensuring your data stays private and accessible. All calculations happen locally in your browser, keeping your academic records secure.
+              We prioritize accuracy and simplicity, ensuring your data stays private and accessible. All calculations happen locally in your browser, keeping your academic records secure. If you have questions, feel free to <a href="/contact" className="text-primary hover:underline font-bold">contact our support team</a>.
             </p>
           </div>
           
