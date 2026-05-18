@@ -630,7 +630,7 @@ export default function HomePage() {
       </section>
 
       {/* SEO Optimized Content Sections */}
-      <section className="py-24 px-4 md:px-6 max-w-7xl mx-auto w-full optimize-scrolling border-t border-gray-100/50">
+      <section className="py-24 px-4 md:px-6 max-w-7xl mx-auto w-full optimize-scrolling border-t border-gray-100/50 gpu-accelerate">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -691,7 +691,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="pt-10 pb-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full optimize-scrolling">
+      <section className="pt-10 pb-20 px-4 max-w-7xl mx-auto border-t border-gray-100 w-full optimize-scrolling gpu-accelerate">
 
          <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-50 grayscale hover:grayscale-0 transition-all">
             <div className="flex items-center gap-3">

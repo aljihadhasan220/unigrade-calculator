@@ -16,6 +16,7 @@ const TermsPage = lazy(() => import('./pages/TermsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const StandardsPage = lazy(() => import('./pages/StandardsPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
 
 const PageLoader = () => (
   <div className="min-h-[60vh] w-full flex items-center justify-center">
@@ -99,6 +100,7 @@ export default function App() {
           <Route path="/contact" element={<Suspense fallback={<PageLoader />}><ContactPage /></Suspense>} />
           <Route path="/faq" element={<Suspense fallback={<PageLoader />}><FAQPage /></Suspense>} />
           <Route path="/standards" element={<Suspense fallback={<PageLoader />}><StandardsPage /></Suspense>} />
+          <Route path="/blog" element={<Suspense fallback={<PageLoader />}><BlogPage /></Suspense>} />
         </Routes>
       </Layout>
     </BrowserRouter>

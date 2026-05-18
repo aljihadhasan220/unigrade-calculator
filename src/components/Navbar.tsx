@@ -34,6 +34,7 @@ export const Navbar = memo(({ darkMode, setDarkMode }: { darkMode: boolean; setD
             <button onClick={() => scrollToSection('calculator')} className="hover:text-primary transition-colors cursor-pointer" aria-label="Scroll to calculator">Calculator</button>
             <button onClick={() => scrollToSection('global-standards')} className="hover:text-primary transition-colors cursor-pointer" aria-label="Scroll to standards">Standards</button>
             <Link to="/about" className="hover:text-primary transition-colors">About</Link>
+            <Link to="/blog" className="hover:text-primary transition-colors">Blog</Link>
             <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
           </div>
   

@@ -26,6 +26,7 @@ export const Footer = memo(() => {
           <button onClick={() => scrollToSection('home')} className="hover:text-primary transition-colors cursor-pointer">Home</button>
           <button onClick={() => scrollToSection('calculator')} className="hover:text-primary transition-colors cursor-pointer">Calculator</button>
           <Link to="/about" className="hover:text-primary transition-colors">About</Link>
+          <Link to="/blog" className="hover:text-primary transition-colors">Blog</Link>
           <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
           <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
           <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>

@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -8,7 +9,7 @@ interface SEOProps {
   schema?: any;
 }
 
-export const SEO = ({ 
+export const SEO = memo(({ 
   title, 
   description, 
   canonical, 
@@ -45,4 +46,4 @@ export const SEO = ({
       )}
     </Helmet>
   );
-};
+});

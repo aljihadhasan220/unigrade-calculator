@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,7 @@ interface BackButtonProps {
   className?: string;
 }
 
-export default function BackButton({ className }: BackButtonProps) {
+const BackButton = memo(({ className }: BackButtonProps) => {
   const navigate = useNavigate();
 
   return (
@@ -26,4 +27,6 @@ export default function BackButton({ className }: BackButtonProps) {
       <span className="text-[10px] font-black uppercase tracking-widest text-primary/80">Home</span>
     </motion.button>
   );
-}
+});
+
+export default BackButton;
