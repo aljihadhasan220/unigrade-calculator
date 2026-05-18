@@ -22,7 +22,7 @@ export const Footer = memo(() => {
           <span className="text-xl font-extrabold tracking-tight text-[#111827] font-display">UniGrade</span>
         </div>
         
-        <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-12 gap-y-4 mb-12 text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest px-4">
+        <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-12 gap-y-4 mb-4 text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest px-4">
           <button onClick={() => scrollToSection('home')} className="hover:text-primary transition-colors cursor-pointer">Home</button>
           <button onClick={() => scrollToSection('calculator')} className="hover:text-primary transition-colors cursor-pointer">Calculator</button>
           <Link to="/about" className="hover:text-primary transition-colors">About</Link>
@@ -30,6 +30,14 @@ export const Footer = memo(() => {
           <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
           <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
           <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-12 text-[9px] md:text-[11px] font-bold text-gray-300 uppercase tracking-widest px-4">
+          <Link to="/grade-calculator" className="hover:text-primary transition-colors">Grade Calculator</Link>
+          <Link to="/weighted-grade-calculator" className="hover:text-primary transition-colors">Weighted Grade</Link>
+          <Link to="/final-grade-calculator" className="hover:text-primary transition-colors">Final Grade</Link>
+          <Link to="/test-grade-calculator" className="hover:text-primary transition-colors">Test Grade</Link>
+          <Link to="/standards" className="hover:text-primary transition-colors">Standards</Link>
         </div>
 
         <div className="flex flex-col items-center gap-4 border-t border-gray-100 pt-12">

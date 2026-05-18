@@ -17,6 +17,10 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const StandardsPage = lazy(() => import('./pages/StandardsPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
+const GradeCalculatorPage = lazy(() => import('./pages/GradeCalculatorPage'));
+const WeightedGradeCalculatorPage = lazy(() => import('./pages/WeightedGradeCalculatorPage'));
+const FinalGradeCalculatorPage = lazy(() => import('./pages/FinalGradeCalculatorPage'));
+const TestGradeCalculatorPage = lazy(() => import('./pages/TestGradeCalculatorPage'));
 
 const PageLoader = () => (
   <div className="min-h-[60vh] w-full flex items-center justify-center">
@@ -101,6 +105,10 @@ export default function App() {
           <Route path="/faq" element={<Suspense fallback={<PageLoader />}><FAQPage /></Suspense>} />
           <Route path="/standards" element={<Suspense fallback={<PageLoader />}><StandardsPage /></Suspense>} />
           <Route path="/blog" element={<Suspense fallback={<PageLoader />}><BlogPage /></Suspense>} />
+          <Route path="/grade-calculator" element={<Suspense fallback={<PageLoader />}><GradeCalculatorPage /></Suspense>} />
+          <Route path="/weighted-grade-calculator" element={<Suspense fallback={<PageLoader />}><WeightedGradeCalculatorPage /></Suspense>} />
+          <Route path="/final-grade-calculator" element={<Suspense fallback={<PageLoader />}><FinalGradeCalculatorPage /></Suspense>} />
+          <Route path="/test-grade-calculator" element={<Suspense fallback={<PageLoader />}><TestGradeCalculatorPage /></Suspense>} />
         </Routes>
       </Layout>
     </BrowserRouter>
