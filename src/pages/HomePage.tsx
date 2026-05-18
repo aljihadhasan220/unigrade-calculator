@@ -319,7 +319,7 @@ export default function HomePage() {
           >
             <h1 className="text-[2.3rem] sm:text-5xl md:text-7xl font-extrabold text-[#111827] leading-[1.15] mb-6 font-display tracking-tight px-1 sm:px-0">
               Universal Grade <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Engine</span>
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Calculator</span>
             </h1>
             <p className="text-base md:text-lg text-gray-500 mb-8 max-w-lg mx-auto lg:mx-0 font-medium leading-normal px-4 sm:px-0">
               Worldwide GPA & Percentage conversion engine with real-time academic analytics. Precision-built for global education systems.
@@ -627,6 +627,67 @@ export default function HomePage() {
                </GlassCard>
             ))}
          </div>
+      </section>
+
+      {/* SEO Optimized Content Sections */}
+      <section className="py-24 px-4 md:px-6 max-w-7xl mx-auto w-full optimize-scrolling border-t border-gray-100/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <GlassCard className="p-8 h-full">
+              <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Grade Calculator</h2>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Our universal grade calculator is designed for students worldwide to track and manage their academic results with precision. Convert letter grades into numerical GPA values instantly across 15+ different international standards.
+              </p>
+            </GlassCard>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <GlassCard className="p-8 h-full">
+              <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Weighted Grade Calculator</h2>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Use the weighted grade calculator to account for varying course credits and importance. By inputting the specific weight of each assignment or exam, you get a reflective data point of your semester's true performance.
+              </p>
+            </GlassCard>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <GlassCard className="p-8 h-full">
+              <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Final Grade Calculator</h2>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Plan your success with the UniGrade final grade calculator. Reverse-engineer your targets to find out exactly what marks you need on your upcoming finals to achieve your desired GPA goal or maintain your honors status.
+              </p>
+            </GlassCard>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <GlassCard className="p-8 h-full">
+              <h2 className="text-2xl font-extrabold mb-4 font-display text-gray-900">Test Grade Calculator</h2>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Our test grade calculator allows you to log individual scores for quizzes, midterms, and lab reports. Gain real-time insights into how each specific testing metric influences your overall grade percentage throughout the term.
+              </p>
+            </GlassCard>
+          </motion.div>
+        </div>
       </section>
 
       {/* Trust Badges */}
