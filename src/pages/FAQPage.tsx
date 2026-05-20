@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -6,7 +6,7 @@ import { GlassCard } from '../components/UI';
 import BackButton from '../components/BackButton';
 import { SEO } from '../components/SEO';
 
-const FAQItem = ({ question, answer }: { question: string; answer: string; key?: React.Key }) => {
+const FAQItem = memo(({ question, answer }: { question: string; answer: string; key?: React.Key }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border border-gray-100 rounded-xl bg-white overflow-hidden transition-all shadow-sm">
@@ -23,6 +23,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string; key?:
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
+            style={{ overflow: 'hidden' }}
             className="px-6 pb-4 text-sm md:text-base text-gray-500 leading-relaxed"
           >
             {answer}
@@ -31,7 +32,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string; key?:
       </AnimatePresence>
     </div>
   );
-};
+});
 
 export default function FAQPage() {
   const faqs = [

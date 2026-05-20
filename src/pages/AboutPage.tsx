@@ -62,7 +62,7 @@ export default function AboutPage() {
         >
            <GlassCard className="p-2 overflow-hidden border-2 border-primary/5">
               <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=850&auto=format&fit=crop&fm=webp" 
                 alt="Students collaborating" 
                 className="w-full h-[280px] md:h-[600px] object-cover rounded-[18px]"
                 referrerPolicy="no-referrer"
