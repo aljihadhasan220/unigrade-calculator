@@ -103,7 +103,12 @@ export const CalculatorPanel = memo(({
 
   // Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('unigrade_data');
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem('unigrade_data');
+    } catch (e) {
+      console.warn("Storage access blocked in this sandbox:", e);
+    }
     if (saved) {
       try {
         const data = JSON.parse(saved);
@@ -120,12 +125,16 @@ export const CalculatorPanel = memo(({
   // Save to LocalStorage
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem('unigrade_data', JSON.stringify({
-        subjects,
-        gradingSystem,
-        previousCgpa,
-        previousCredits
-      }));
+      try {
+        localStorage.setItem('unigrade_data', JSON.stringify({
+          subjects,
+          gradingSystem,
+          previousCgpa,
+          previousCredits
+        }));
+      } catch (e) {
+        console.warn("Storage write blocked in this sandbox:", e);
+      }
     }, 1000);
     return () => clearTimeout(timer);
   }, [subjects, gradingSystem, previousCgpa, previousCredits]);
@@ -198,9 +207,22 @@ export const CalculatorPanel = memo(({
   const copyResult = () => {
     if (!calculationResult) return;
     const text = `My Results - GPA: ${calculationResult.gpa.toFixed(2)}, CGPA: ${calculationResult.cgpa.toFixed(2)}\nCalculated with UniGrade`;
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(e => {
+          console.warn("Clipboard write failed", e);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        });
+    } else {
+      console.warn("Clipboard API not available in this sandbox context.");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const downloadAsPDF = async () => {
