@@ -13,6 +13,10 @@ export default function StandardsPage() {
         title="Global Grading Standards"
         description="Comprehensive index of international grading systems including USA, UK, India, and ECTS benchmarks supported by the UniGrade engine."
         canonical="/standards"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Standards", item: "/standards" }
+        ]}
       />
       <div className="max-w-7xl mx-auto">
         <BackButton />

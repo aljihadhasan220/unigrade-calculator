@@ -45,6 +45,10 @@ export default function ContactPage() {
         title="Contact UniGrade Support"
         description="Get in touch with the UniGrade support team for grading queries, feedback, or enterprise integration requests."
         canonical="/contact"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Contact", item: "/contact" }
+        ]}
       />
       <div className="max-w-7xl mx-auto">
         <BackButton />

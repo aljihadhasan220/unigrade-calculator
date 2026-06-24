@@ -8,12 +8,21 @@ import { SEO } from '../components/SEO';
 import { blogPosts } from '../data/blogData';
 
 export default function BlogPage() {
+  // Sort blog posts with newest first (publish date descending)
+  const sortedBlogPosts = [...blogPosts].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return (
     <div className="pt-24 md:pt-36 pb-12 md:pb-24 px-4 md:px-6 gpu-accelerate">
       <SEO 
         title="UniGrade Blog | GPA, CGPA & Grade Calculator Guides"
         description="Explore UniGrade academic guides, GPA calculation tutorials, weighted grade explanations, grading systems, and student resources."
         canonical="/blog"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Blog", item: "/blog" }
+        ]}
         schema={{
           "@context": "https://schema.org",
           "@type": "Blog",
@@ -24,10 +33,10 @@ export default function BlogPage() {
             "name": "UniGrade",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://unigrade.site/og-image.png"
+              "url": "https://unigrade.site/logo.svg"
             }
           },
-          "blogPost": blogPosts.map(post => ({
+          "blogPost": sortedBlogPosts.map(post => ({
             "@type": "BlogPosting",
             "headline": post.title,
             "description": post.description,
@@ -63,7 +72,7 @@ export default function BlogPage() {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {sortedBlogPosts.map((post, index) => (
             <motion.div
               key={post.slug}
               initial={{ opacity: 0, y: 20 }}

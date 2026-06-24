@@ -68,6 +68,10 @@ export default function FAQPage() {
         title="FAQ"
         description="Find answers to common questions about UniGrade's calculation methods, privacy, and international standard support."
         canonical="/faq"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "FAQ", item: "/faq" }
+        ]}
         schema={{
           "@context": "https://schema.org",
           "@type": "FAQPage",

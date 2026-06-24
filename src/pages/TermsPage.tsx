@@ -12,6 +12,10 @@ export default function TermsPage() {
         title="Terms & Conditions | UniGrade"
         description="Terms and conditions for using the UniGrade platform, calculation engine, and academic report generation tools."
         canonical="/terms"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Terms of Service", item: "/terms" }
+        ]}
       />
       <div className="max-w-4xl mx-auto">
         <BackButton />

@@ -12,6 +12,10 @@ export default function AboutPage() {
         title="About UniGrade | Global Academic Analytics"
         description="Learn about UniGrade's mission to provide students with precision academic tools and worldwide grading standards visibility."
         canonical="/about"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "About", item: "/about" }
+        ]}
       />
       <div className="max-w-7xl mx-auto">
         <BackButton />

@@ -12,6 +12,10 @@ export default function PrivacyPage() {
         title="Privacy Policy | UniGrade"
         description="Our commitment to academic data privacy. Learn how UniGrade keeps your data strictly on your device using a local-only storage model."
         canonical="/privacy"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Privacy Policy", item: "/privacy" }
+        ]}
       />
       <div className="max-w-4xl mx-auto">
         <BackButton />

@@ -136,6 +136,13 @@ export default function BlogDetailPage() {
         description={post.metaDescription}
         canonical={`/blog/${post.slug}`}
         type="article"
+        image={post.imageUrl}
+        author={post.author}
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Blog", item: "/blog" },
+          { name: post.title, item: `/blog/${post.slug}` }
+        ]}
         schema={combinedSchema}
       />
 
@@ -443,7 +450,11 @@ export default function BlogDetailPage() {
                 Other Guides
               </h3>
               <div className="space-y-4">
-                {blogPosts.filter(bp => bp.slug !== post.slug).slice(0, 3).map(bp => (
+                {[...blogPosts]
+                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .filter(bp => bp.slug !== post.slug)
+                  .slice(0, 3)
+                  .map(bp => (
                   <Link key={bp.slug} to={`/blog/${bp.slug}`} className="block group">
                     <div className="flex gap-4">
                       <div className="w-16 h-16 rounded-xl overflow-hidden bg-gray-50 shrink-0 border border-gray-100">
