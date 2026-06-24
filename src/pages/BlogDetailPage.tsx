@@ -338,6 +338,26 @@ export default function BlogDetailPage() {
                       </div>
                     );
 
+                  case 'image':
+                    return (
+                      <div key={idx} className="my-8 space-y-2 text-center">
+                        <div className="rounded-3xl overflow-hidden border border-gray-100 shadow-lg relative bg-gray-50 aspect-video max-h-[380px] w-full mx-auto">
+                          <img 
+                            src={section.imageUrl} 
+                            alt={section.text || "Illustration"} 
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                        {section.subText && (
+                          <p className="text-xs text-gray-400 font-bold italic pt-1 max-w-xl mx-auto">
+                            {section.subText}
+                          </p>
+                        )}
+                      </div>
+                    );
+
                   default:
                     return null;
                 }

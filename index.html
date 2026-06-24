@@ -2,6 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Prevent cross-origin iframe / extension Script errors from breaking the preview -->
+    <script>
+      (function() {
+        window.addEventListener('error', function(event) {
+          if (event && event.message && (event.message === 'Script error.' || event.message === 'Script error')) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }, true);
+        window.onerror = function(message) {
+          if (message && (message === 'Script error.' || message === 'Script error')) {
+            return true;
+          }
+        };
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>UniGrade – Universal Grade Calculator | GPA, CGPA & Percentage</title>
     <meta name="description" content="Calculate your GPA, CGPA, and grade percentages with UniGrade. The most advanced universal grade calculator supporting USA, UK, India, ECTS, and 15+ international systems.">
