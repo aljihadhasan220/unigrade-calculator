@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MapPin, Briefcase, ShieldCheck, CheckCircle2, ArrowRight, Award } from 'lucide-react';
 
-const APPLY_URL = "https://eternalwheeled.com/eyzcuwde9?key=4b66b1f0f7e4784f8a9b9ae0919de7bf";
+const APPLY_URL = "https://www.effectivecpmnetwork.com/uu88f6t9n?key=c9a795386f45c57fb43923bdf46f5af2";
 
 export default function JobLandingPage() {
   useEffect(() => {
