@@ -148,17 +148,6 @@ export default function JobLandingPage() {
           </div>
         </section>
 
-        {/* Additional Top Call to Action Button */}
-        <section className="mb-8">
-          <a
-            href="#"
-            className="w-full py-3.5 sm:py-4 px-8 rounded-xl font-bold text-base sm:text-lg text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/30 transition-all text-center flex items-center justify-center gap-2 tracking-wide cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-600/30"
-          >
-            <span>Apply Now</span>
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </section>
-
         {/* Job Description */}
         <section className="mb-8" aria-labelledby="job-description-heading">
           <h2 id="job-description-heading" className="text-lg font-bold text-slate-900 mb-2.5">
