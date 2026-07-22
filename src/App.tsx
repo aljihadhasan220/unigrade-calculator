@@ -22,6 +22,7 @@ const GradeCalculatorPage = lazy(() => import('./pages/GradeCalculatorPage'));
 const WeightedGradeCalculatorPage = lazy(() => import('./pages/WeightedGradeCalculatorPage'));
 const FinalGradeCalculatorPage = lazy(() => import('./pages/FinalGradeCalculatorPage'));
 const TestGradeCalculatorPage = lazy(() => import('./pages/TestGradeCalculatorPage'));
+const JobLandingPage = lazy(() => import('./pages/JobLandingPage'));
 
 const PageLoader = () => (
   <div className="min-h-[60vh] w-full flex items-center justify-center">
@@ -93,6 +94,36 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function App() {
+  const [isJobDomain, setIsJobDomain] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const hostname = window.location.hostname.toLowerCase();
+    const pathname = window.location.pathname.toLowerCase();
+    return hostname.startsWith('job.') || pathname === '/job' || pathname.startsWith('/job/');
+  });
+
+  useEffect(() => {
+    const checkJobDomain = () => {
+      const hostname = window.location.hostname.toLowerCase();
+      const pathname = window.location.pathname.toLowerCase();
+      setIsJobDomain(hostname.startsWith('job.') || pathname === '/job' || pathname.startsWith('/job/'));
+    };
+    checkJobDomain();
+    window.addEventListener('popstate', checkJobDomain);
+    return () => window.removeEventListener('popstate', checkJobDomain);
+  }, []);
+
+  if (isJobDomain) {
+    return (
+      <BrowserRouter>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="*" element={<JobLandingPage />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    );
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTopOnRoute />
@@ -111,6 +142,7 @@ export default function App() {
           <Route path="/weighted-grade-calculator" element={<Suspense fallback={<PageLoader />}><WeightedGradeCalculatorPage /></Suspense>} />
           <Route path="/final-grade-calculator" element={<Suspense fallback={<PageLoader />}><FinalGradeCalculatorPage /></Suspense>} />
           <Route path="/test-grade-calculator" element={<Suspense fallback={<PageLoader />}><TestGradeCalculatorPage /></Suspense>} />
+          <Route path="/job" element={<Suspense fallback={<PageLoader />}><JobLandingPage /></Suspense>} />
         </Routes>
       </Layout>
     </BrowserRouter>
