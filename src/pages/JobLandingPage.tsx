@@ -113,7 +113,7 @@ export default function JobLandingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-6 md:p-10 font-sans text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
-      <main className="w-full max-w-[700px] bg-white rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-100 p-6 sm:p-10 transition-all">
+      <main className="w-full max-w-[820px] bg-white rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-100 p-6 sm:p-10 transition-all">
         {/* Job Header */}
         <header className="border-b border-slate-100 pb-6 mb-6">
           <div className="flex items-center gap-2 mb-2 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 w-fit px-2.5 py-1 rounded-md">
@@ -146,6 +146,17 @@ export default function JobLandingPage() {
               Applicants must be legal residents of the United States and authorized to work in the USA.
             </p>
           </div>
+        </section>
+
+        {/* Additional Top Call to Action Button */}
+        <section className="mb-8">
+          <a
+            href="#"
+            className="w-full py-3.5 sm:py-4 px-8 rounded-xl font-bold text-base sm:text-lg text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/30 transition-all text-center flex items-center justify-center gap-2 tracking-wide cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-600/30"
+          >
+            <span>Apply Now</span>
+            <ArrowRight className="w-5 h-5" />
+          </a>
         </section>
 
         {/* Job Description */}
@@ -197,6 +208,9 @@ export default function JobLandingPage() {
             <span>Apply Now</span>
             <ArrowRight className="w-5 h-5" />
           </a>
+          <p className="mt-3 text-center text-xs text-slate-400">
+            This page is for job application purposes only. Eligibility requirements apply.
+          </p>
         </section>
       </main>
     </div>
