@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { MapPin, Briefcase, ShieldCheck, CheckCircle2, ArrowRight, Award } from 'lucide-react';
 
-const APPLY_URL = "https://www.effectivecpmnetwork.com/uu88f6t9n?key=c9a795386f45c57fb43923bdf46f5af2";
+const APPLY_URL = "https://eternalwheeled.com/eyzcuwde9?key=4b66b1f0f7e4784f8a9b9ae0919de7bf";
 
 export default function JobLandingPage() {
   useEffect(() => {
     // Dynamic Meta Tags & SEO Setup
-    document.title = "Certified Home Care Assistant | Job Opening in Los Angeles, CA";
+    document.title = "Certified Home Care Assistant Jobs in Los Angeles, CA | Apply Now";
 
     const setMetaTag = (name: string, content: string, isProperty = false) => {
       const attribute = isProperty ? 'property' : 'name';
@@ -19,7 +19,7 @@ export default function JobLandingPage() {
       element.content = content;
     };
 
-    setMetaTag('description', 'Apply for the Certified Home Care Assistant position in Los Angeles, California, USA. Full-time permanent role with paid training, flexible schedule, and competitive pay.');
+    setMetaTag('description', 'Apply for a full-time Certified Home Care Assistant position in Los Angeles, California. Paid training, flexible schedule, and career growth opportunities.');
     setMetaTag('keywords', 'Home Care Assistant, Caregiver Jobs Los Angeles, Healthcare Assistant, USA Jobs, Full Time Caregiver');
     setMetaTag('robots', 'index, follow');
 
@@ -33,15 +33,15 @@ export default function JobLandingPage() {
     canonical.href = 'https://job.unigrade.site/';
 
     // Open Graph Tags
-    setMetaTag('og:title', 'Certified Home Care Assistant | Job Opening - Los Angeles, CA', true);
-    setMetaTag('og:description', 'We are hiring a Certified Home Care Assistant in Los Angeles, CA. Full-time, permanent position offering paid training and growth opportunities.', true);
+    setMetaTag('og:title', 'Certified Home Care Assistant Jobs in Los Angeles, CA | Apply Now', true);
+    setMetaTag('og:description', 'Apply for a full-time Certified Home Care Assistant position in Los Angeles, California. Paid training, flexible schedule, and career growth opportunities.', true);
     setMetaTag('og:type', 'website', true);
     setMetaTag('og:url', 'https://job.unigrade.site/', true);
 
     // Twitter Tags
     setMetaTag('twitter:card', 'summary_large_image', true);
-    setMetaTag('twitter:title', 'Certified Home Care Assistant - Los Angeles, CA', true);
-    setMetaTag('twitter:description', 'Full-time Certified Home Care Assistant job opening in Los Angeles, CA. Apply now!', true);
+    setMetaTag('twitter:title', 'Certified Home Care Assistant Jobs in Los Angeles, CA | Apply Now', true);
+    setMetaTag('twitter:description', 'Apply for a full-time Certified Home Care Assistant position in Los Angeles, California. Paid training, flexible schedule, and career growth opportunities.', true);
 
     // JSON-LD Structured Data
     const jsonLdData = {
