@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { MapPin, Briefcase, ShieldCheck, CheckCircle2, ArrowRight, Award } from 'lucide-react';
 
+const APPLY_URL = "https://eternalwheeled.com/eyzcuwde9?key=4b66b1f0f7e4784f8a9b9ae0919de7bf";
+
 export default function JobLandingPage() {
   useEffect(() => {
     // Dynamic Meta Tags & SEO Setup
@@ -191,7 +193,13 @@ export default function JobLandingPage() {
         {/* Primary Call to Action Button */}
         <section className="mt-8 pt-2">
           <a
-            href="#"
+            href={APPLY_URL || '#'}
+            onClick={(e) => {
+              if (APPLY_URL) {
+                e.preventDefault();
+                window.location.href = APPLY_URL;
+              }
+            }}
             className="w-full py-4 px-8 rounded-xl font-bold text-base sm:text-lg text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/30 transition-all text-center flex items-center justify-center gap-2 tracking-wide cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-600/30"
           >
             <span>Apply Now</span>
